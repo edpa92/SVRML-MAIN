@@ -6,17 +6,485 @@
         xmlns:local="clr-namespace:SVRML"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="Dashboard" Height="616.4" Width="1053.1" WindowStartupLocation="CenterScreen">
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
+        Title="Dashboard" Height="657.2" Width="1094.2" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" FontFamily="Agency FB" Closing="Window_Closing">
+
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/road.jpg" Stretch="UniformToFill"/>
+    </Window.Background>
+    <Window.Resources>
+        <!-- DataGrid Style -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="GridLinesVisibility" Value="All" />
+            <Setter Property="AlternatingRowBackground" Value="#F9F9F9" />
+            <Setter Property="RowBackground" Value="White" />
+            <Setter Property="CanUserAddRows" Value="False" />
+            <Setter Property="HorizontalGridLinesBrush" Value="#EAEAEA" />
+            <Setter Property="VerticalGridLinesBrush" Value="#EAEAEA" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+        <!-- DataGrid Row Style -->
+        <Style TargetType="DataGridRow">
+            <Setter Property="Height" Value="20" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Style.Triggers>
+                <!-- Hover Effect -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F0F8FF" />
+                </Trigger>
+                <!-- Selected Row -->
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0078D7" />
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- DataGrid Column Header Style -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="Blue" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Style.Triggers>
+                <!-- Hover Effect -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#005A9E" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- DataGrid Cell Style -->
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="BorderBrush" Value="#EAEAEA" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Style.Triggers>
+                <!-- Hover Effect -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E0F7FA" />
+                </Trigger>
+                <!-- Selected Cell -->
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#BCCCDC" />
+                    <Setter Property="Foreground" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
 
     <Grid Margin="0,1,-1,0.4">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="352*"/>
-            <ColumnDefinition Width="65*"/>
-            <ColumnDefinition Width="573*"/>
-            <ColumnDefinition Width="57*"/>
-        </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGridTab" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Height="520" Width="130" SelectionChanged="dataGridTab_SelectionChanged" FontSize="24" FontWeight="Bold" FontFamily="Franklin Gothic Heavy"/>
-        <Button x:Name="buttonAddVehicle" Content="Add New Vehicle" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="130" Height="30" Click="buttonAddVehicle_Click"/>
+
+
+        <DockPanel>
+            <DockPanel.Background>
+                <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/road.jpg" Stretch="UniformToFill" Opacity="0.8"/>
+            </DockPanel.Background>
+            <Menu Opacity="0.7" DockPanel.Dock="Top" Margin="4,0,-0.2,0">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New Vehicle" Click="buttonAddVehicle_Click" />
+                    <!--<MenuItem Header="_Save" />-->
+                    <Separator />
+                    <MenuItem x:Name="MenuExit" Header="_Exit" Click="MenuExit_Click" />
+                </MenuItem>
+                <MenuItem Header="_Options" >
+                    <MenuItem Header="_Settings" Click="MenuItemSettigns_Click" />
+                    <MenuItem Header="_Account" Click="MenuItemCredentials_Click" />
+                </MenuItem>
+                <MenuItem Header="_About" Click="MenuItem_Click">
+                </MenuItem>
+            </Menu>
+            <!--<TextBox AcceptsReturn="True" Margin="0,100.4,0,0.4" />-->
+        </DockPanel>
+        <!-- Display a FontAwesome Icon -->
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="585" Margin="253,34,0,0" VerticalAlignment="Top" Width="824" HorizontalContentAlignment="Center" SelectionChanged="tabControl_SelectionChanged_1" FontSize="15">
+            <!-- Align Tabs to the Right -->
+
+            <TabControl.Background>
+                <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/road.jpg" Stretch="UniformToFill" Opacity="80"/>
+            </TabControl.Background>
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabPanel}">
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                </Style>
+            </TabControl.Resources>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\edpa9\documents\visual studio 2015\Projects\SVRML\SVRML\icons\automotive-36.png" Width="16" Height="16"/>
+                        <TextBlock Text="Mintenance Log" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Opacity="0.5" x:Name="groupBox" Header="" HorizontalAlignment="Left" Margin="268,6,0,0" VerticalAlignment="Top" Height="91" Width="545" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Padding="0" FontFamily="Segoe UI"/>
+                    <Label Foreground="White" Content="Maintenance Logs" VerticalAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="55,7,0,0" Height="41" FontFamily="Segoe UI" FontSize="20" />
+                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnNewMaintenance" Content="Add Maintenance" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,49,671.4,464" Width="124" Click="Button_Click_1" RenderTransformOrigin="0.502,0.503" IsEnabled="False" FontSize="14" FontFamily="Agency FB" />
+                    <!--<DataGrid ColumnWidth="*" x:Name="dataGridMaintenanceLog" Margin="4,106,11.4,275.8" MouseDoubleClick="dataGridMaintenanceLog_MouseDoubleClick" SelectedCellsChanged="dataGridMaintenanceLog_SelectedCellsChanged"   />-->
+                    <Label Foreground="Wheat" Content="Double click every row to view other details." Margin="5,531,162.4,-3" RenderTransformOrigin="0.5,0.5" FontSize="12" FontFamily="Segoe UI"  />
+                    <DatePicker x:Name="dtpFrom" HorizontalAlignment="Left" Margin="323,32,0,0" VerticalAlignment="Top" Width="163" RenderTransformOrigin="0.367,0.388" FontFamily="Segoe UI"/>
+                    <Label x:Name="label1" Content="From:" HorizontalAlignment="Left" Margin="279,30,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <Label x:Name="label4" Content="To:" HorizontalAlignment="Left" Margin="494,30,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <DatePicker x:Name="dtpTo" HorizontalAlignment="Left" Margin="519,32,0,0" VerticalAlignment="Top" Width="210" FontSize="14" FontFamily="Segoe UI"/>
+                    <RadioButton x:Name="cbAirfilter" Content="Change AirFilter" HorizontalAlignment="Left" Margin="279,70,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <RadioButton x:Name="cbTire" Content="Change Tire" HorizontalAlignment="Left" Margin="403,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <RadioButton x:Name="cbBelt" Content="Change Belt" HorizontalAlignment="Left" Margin="504,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <RadioButton x:Name="cbBreak" Content="Change Brakpad" HorizontalAlignment="Left" Margin="606,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <RadioButton x:Name="cbOil" Content="Change Oil" HorizontalAlignment="Left" Margin="733,74,0,0" VerticalAlignment="Top" FontSize="12" Width="84" FontFamily="Segoe UI"/>
+                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnApplyFilter" Content="FIlter" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,31,12.4,494" Width="72"  RenderTransformOrigin="0.687,0.894" IsEnabled="False" Click="btnApplyFilter_Click" FontSize="14" FontFamily="Agency FB" />
+                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnReport" Content="Report" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,51,577.4,465" Width="85" RenderTransformOrigin="0.502,0.503" IsEnabled="False" Click="btnReport_Click" FontSize="14" FontFamily="Agency FB" />
+                    <ListView Opacity="0.6" x:Name="listView" HorizontalAlignment="Left" Height="421" Margin="3,110,0,0" VerticalAlignment="Top" Width="803" FontSize="16" MouseDoubleClick="listView_MouseDoubleClick" SelectionMode="Single" SelectionChanged="listView_SelectionChanged" FontFamily="Segoe UI">
+
+                        <!--<ListView.Background>
+                            <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/road.jpg" Stretch="UniformToFill" Opacity="80"/>
+                        </ListView.Background>-->
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="0" />
+                                <GridViewColumn Header="Repaire Date" DisplayMemberBinding="{Binding RepairDate}" Width="220" />
+                                <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding Cost}" Width="80" />
+                                <GridViewColumn Header="Milage" DisplayMemberBinding="{Binding Milage}" Width="80" />
+                                <GridViewColumn Header="RepairType" DisplayMemberBinding="{Binding RepairType}" Width="500" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <!-- SCHED TAB-->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\edpa9\documents\visual studio 2015\Projects\SVRML\SVRML\icons\calendar.png" Width="16" Height="16"/>
+                        <TextBlock Text="Schedule" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="641*"/>
+                        <ColumnDefinition Width="158*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Foreground="White" Content="Schedule Maintenance" VerticalAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="21,14,0,0" Height="30" FontFamily="Segoe UI Semibold" FontSize="14" />
+                    <Button Style="{StaticResource RoundedButton}"  Name="btnNewSched" Content="NEW SCHEDULE" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,16,15.4,499" Width="139" RenderTransformOrigin="0.502,0.503" IsEnabled="False" Click="btnNewSched_Click" Grid.Column="1" />
+                    <Label Content="Double click every row to view other details." Margin="9,514,158.4,2.2" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" FontFamily="Segoe UI" FontSize="12"  />
+                    <ListView Opacity="0.5" x:Name="listViewSched" HorizontalAlignment="Left" Height="455" Margin="9,63,0,0" VerticalAlignment="Top" Width="798" Grid.ColumnSpan="2" SelectionChanged="listViewSched_SelectionChanged" MouseDoubleClick="listViewSched_MouseDoubleClick" FontSize="18" FontFamily="Segoe UI">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="0" />
+                                <GridViewColumn Header="Schedule Date" DisplayMemberBinding="{Binding ScheduleDate}" Width="200" />
+                                <GridViewColumn Header="Schedule in" DisplayMemberBinding="{Binding ScheduleIn}" Width="200" />
+                                <GridViewColumn Header="Details" DisplayMemberBinding="{Binding Details}" Width="500" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <!-- SCHED TAB END-->
+
+            <!-- SCHED TAB-->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\edpa9\documents\visual studio 2015\Projects\SVRML\SVRML\icons\info-36.png" Width="16" Height="16"/>
+                        <TextBlock Text="Details" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid HorizontalAlignment="Center" Margin="0,10,0,0.2" Width="825">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="74,52,28.8,198.4" Background="#FFDDDDDD">
+                        <TextBlock Text="Brand/Model:" FontWeight="Bold" Margin="10,10,10,0" />
+                        <ComboBox Name="comboBox1"  Grid.Row="1" Grid.Column="1" Margin="10,3,10,10" FontSize="20">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="Abarth" />
+                                <ComboBoxItem Content="Acura" />
+                                <ComboBoxItem Content="Alfa Romeo" />
+                                <ComboBoxItem Content="Aston Martin" />
+                                <ComboBoxItem Content="Audi" />
+                                <ComboBoxItem Content="Bentley" />
+                                <ComboBoxItem Content="BMW" />
+                                <ComboBoxItem Content="Bugatti" />
+                                <ComboBoxItem Content="Buick" />
+                                <ComboBoxItem Content="Cadillac" />
+                                <ComboBoxItem Content="Chevrolet" />
+                                <ComboBoxItem Content="Chrysler" />
+                                <ComboBoxItem Content="Citroën" />
+                                <ComboBoxItem Content="Dacia" />
+                                <ComboBoxItem Content="Daewoo" />
+                                <ComboBoxItem Content="Daihatsu" />
+                                <ComboBoxItem Content="Dodge" />
+                                <ComboBoxItem Content="Ferrari" />
+                                <ComboBoxItem Content="Fiat" />
+                                <ComboBoxItem Content="Ford" />
+                                <ComboBoxItem Content="Genesis" />
+                                <ComboBoxItem Content="GMC" />
+                                <ComboBoxItem Content="Honda" />
+                                <ComboBoxItem Content="Hyundai" />
+                                <ComboBoxItem Content="Infiniti" />
+                                <ComboBoxItem Content="Isuzu" />
+                                <ComboBoxItem Content="Jaguar" />
+                                <ComboBoxItem Content="Jeep" />
+                                <ComboBoxItem Content="Kia" />
+                                <ComboBoxItem Content="Lamborghini" />
+                                <ComboBoxItem Content="Lancia" />
+                                <ComboBoxItem Content="Land Rover" />
+                                <ComboBoxItem Content="Lexus" />
+                                <ComboBoxItem Content="Lincoln" />
+                                <ComboBoxItem Content="Lotus" />
+                                <ComboBoxItem Content="Maserati" />
+                                <ComboBoxItem Content="Mazda" />
+                                <ComboBoxItem Content="McLaren" />
+                                <ComboBoxItem Content="Mercedes-Benz" />
+                                <ComboBoxItem Content="Mini" />
+                                <ComboBoxItem Content="Mitsubishi" />
+                                <ComboBoxItem Content="Nissan" />
+                                <ComboBoxItem Content="Opel" />
+                                <ComboBoxItem Content="Peugeot" />
+                                <ComboBoxItem Content="Porsche" />
+                                <ComboBoxItem Content="Ram" />
+                                <ComboBoxItem Content="Renault" />
+                                <ComboBoxItem Content="Rolls-Royce" />
+                                <ComboBoxItem Content="Saab" />
+                                <ComboBoxItem Content="Skoda" />
+                                <ComboBoxItem Content="Smart" />
+                                <ComboBoxItem Content="Subaru" />
+                                <ComboBoxItem Content="Suzuki" />
+                                <ComboBoxItem Content="Tesla" />
+                                <ComboBoxItem Content="Toyota" />
+                                <ComboBoxItem Content="Volkswagen" />
+                                <ComboBoxItem Content="Volvo" />
+                            </ComboBox.Items>
+                        </ComboBox>
+
+
+                        <TextBlock Text="Plate number:" FontWeight="Bold" Margin="10,0" />
+                        <TextBox x:Name="txtPlateNo" Margin="10,3,10,10" FontSize="20" />
+                        <TextBlock Text="Type:" FontWeight="Bold" Margin="10,3,10,0" />
+                        <ComboBox Name="comboBox2" Grid.Row="2" Grid.Column="1" Margin="10,0,10,10" FontSize="20" SelectionChanged="comboBox2_SelectionChanged" HorizontalAlignment="Left" Width="288">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="Sedan" />
+                                <ComboBoxItem Content="Hatchback" />
+                                <ComboBoxItem Content="SUV (Sport Utility Vehicle)" />
+                                <ComboBoxItem Content="Truck/Pickup" />
+                                <ComboBoxItem Content="Coupe" />
+                                <ComboBoxItem Content="Convertible" />
+                                <ComboBoxItem Content="Wagon" />
+                                <ComboBoxItem Content="Minivan" />
+                                <ComboBoxItem Content="Van" />
+                                <ComboBoxItem Content="Sports Car" />
+                                <ComboBoxItem Content="Electric Car" />
+                                <ComboBoxItem Content="Hybrid Car" />
+                                <ComboBoxItem Content="Luxury Car" />
+                                <ComboBoxItem Content="Off-Road Vehicle" />
+                                <ComboBoxItem Content="Recreational Vehicle (RV)" />
+                                <ComboBoxItem Content="Microcar" />
+                                <ComboBoxItem Content="Commercial Vehicle" />
+                            </ComboBox.Items>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Right Section -->
+
+                    <StackPanel Grid.Column="1" Margin="1.2,50,105.8,198.4" Background="#FFDDDDDD">
+
+                        <TextBlock Text="Acquisition date:" Margin="10,3" FontWeight="Bold" />
+                        <DatePicker x:Name="dtpAcq" SelectedDate="2024-01-01" Margin="10,3,10,10" FontSize="20" />
+                        <TextBlock Text="Acquisition cost:" Margin="10,3" FontWeight="Bold" />
+                        <TextBox x:Name="txtCost" Margin="10,3,10,10" FontSize="20" />
+                        <TextBlock Text="Serial/Engine number:" FontWeight="Bold" Margin="10,3" />
+                        <TextBox x:Name="txtSerialNo" Margin="10,3,10,10" FontSize="20" />
+                        <TextBlock Text="Last LTO Registration:" Margin="10,3" FontWeight="Bold" />
+                        <DatePicker x:Name="dtpLTO" SelectedDate="2024-01-01" Margin="10,3,10,10" FontSize="20" />
+                    </StackPanel>
+                    <Button Style="{StaticResource RoundedButton}" x:Name="buttonSaveEdit" Content="Save Edit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="176.2,369,0,0" Height="40" Click="button_Click" IsEnabled="False" Grid.Column="1"/>
+                    <Label Foreground="Wheat" x:Name="label3" Content="Vehicle Details" HorizontalAlignment="Left" Margin="329,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="185" FontSize="20" FontFamily="Segoe UI Semibold"/>
+                    <Button Style="{StaticResource RoundedButton}" x:Name="buttonDeleteVehicle" Content="Delete" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="123" Height="40" Margin="32.2,371,256.8,0" IsEnabled="False" Click="buttonDeleteVehicle_Click" Grid.Column="1"/>
+
+                </Grid>
+            </TabItem>
+            <!-- SCHED TAB END-->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\edpa9\documents\visual studio 2015\Projects\SVRML\SVRML\icons\bell-36.png" Width="16" Height="16"/>
+                        <TextBlock Text="Notifiaction" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <ListView Opacity="0.6" x:Name="listViewNoti" FontFamily="Segoe UI">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Date Notified" DisplayMemberBinding="{Binding DateNotified}" Width="150" />
+                            <GridViewColumn Header="Notification details" DisplayMemberBinding="{Binding Details}" Width="650" />
+                            <GridViewColumn Header="SchedID" DisplayMemberBinding="{Binding SchedID}" Width="80" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+
+        </TabControl>
+
+        <Label x:Name="label2" Content="" HorizontalAlignment="Left" Margin="641,12,0,0" VerticalAlignment="Top" Opacity="0"/>
+        <Label x:Name="label" Content="Vehicle" HorizontalAlignment="Center" Margin="260,21,578,0" VerticalAlignment="Top" Width="251" FontWeight="Bold" FontSize="25" Height="49"/>
+        <Border CornerRadius="0,0,0,0" BorderBrush="Black" BorderThickness="1" Height="605" VerticalAlignment="Top" Margin="2,20,837,0" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}"/>
+        <ScrollViewer HorizontalAlignment="Left" Height="545" Margin="8,69,0,0" VerticalAlignment="Top" Width="234" FontSize="14">
+            <Grid Name="dynamicGrid" Margin="10">
+                <!-- Initial row (optional) -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+            </Grid>
+        </ScrollViewer>
+
+        <ComboBox StaysOpenOnEdit="True" x:Name="SearchComboBox" HorizontalAlignment="Left" FontSize="20" Margin="10,31,0,0" VerticalAlignment="Top" Width="216" Height="32" IsEditable="True" SelectionChanged="SearchComboBox_SelectionChanged" TextInput="SearchComboBox_TextInput" KeyDown="SearchComboBox_KeyDown" KeyUp="SearchComboBox_KeyUp" IsTextSearchEnabled="False"/>
+        <TextBlock x:Name="PlaceholderText"
+               Text="Search here..."
+               Foreground="Gray"
+               IsHitTestVisible="False"
+               Margin="14,34,0,0"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               FontSize="14"
+               Padding="4,6,0,0" Height="23"/>
     </Grid>
+
+
+    <!--<Grid>
+        
+    <!- Left Sidebar -->
+    <!--
+        <Border Background="#ECECEC" CornerRadius="15" Width="300" HorizontalAlignment="Left" Margin="10">
+            <StackPanel Margin="20">
+                -->
+    <!-- Add New Vehicle Button -->
+    <!--
+                <Button Content="Add New Vehicle" FontWeight="Bold" Height="40" Background="#D3D3D3" Foreground="Black"
+                        HorizontalAlignment="Left" Margin="0,0,0,20" BorderBrush="Gray" BorderThickness="1" Padding="10,5" />
+
+                -->
+    <!-- Vehicle List -->
+    <!--
+                <StackPanel>
+                    <Button Content="C2 A461" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="SAB 7076" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="PJ 5729" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="C2 A4612" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="SAB 70726" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="PJ 57229" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="C2 2A461" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="SAB 27076" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="PJ 25729" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="C22 A461" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="SAB 27076" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="PJ 57229" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="C22 A461" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                    <Button Content="S2AB 7076" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                        <Button Content="2PJ2 5729" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                        <Button Content="C2 A461" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                        <Button Content="S2AB 7076" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                        <Button Content="2PJ 5729" HorizontalAlignment="Left" Height="40" Width="200" Margin="0,10" Background="White" BorderBrush="Gray" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        -->
+    <!-- Main Content -->
+    <!--
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="315,10,11.4,9.8" Width="720">
+            -->
+    <!-- Title -->
+
+    <!-- Line Separator -->
+    <!-- Title -->
+
+    <!-- Line Separator -->
+    <!-- Title -->
+    <!--
+            <TextBlock Text="C2 A461" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="5,0,313,0" Width="402" />
+
+            -->
+    <!-- Line Separator -->
+    <!--
+            <Separator Margin="10,20" Height="2" Background="Gray" />
+
+            <Grid HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                -->
+    <!-- Left Section -->
+    <!--
+                <StackPanel Grid.Column="0" Margin="20">
+                    -->
+    <!-- Brand/Model -->
+    <!--
+                    <TextBlock Text="Brand/Model:" FontWeight="Bold" />
+                    <TextBox Text="Ford Ranger Red" Margin="0,5,0,15" />
+
+                    -->
+    <!-- Plate Number -->
+    <!--
+                    <TextBlock Text="Plate number:" FontWeight="Bold" />
+                    <TextBox Text="C2 A461" Margin="0,5,0,15" />
+
+                    -->
+    <!-- Type -->
+    <!--
+                    <TextBlock Text="Type:" FontWeight="Bold" />
+                    <TextBox Text="Pick up" Margin="0,5,0,15" />
+
+                    -->
+    <!-- Serial/Engine Number -->
+    <!--
+                    <TextBlock Text="Serial/Engine number:" FontWeight="Bold" />
+                    <TextBox Text="ABC123456" Margin="0,5,0,15" />
+                </StackPanel>
+
+                -->
+    <!-- Right Section -->
+    <!--
+                <StackPanel Grid.Column="1" Margin="20">
+                    -->
+    <!-- Acquisition Date -->
+    <!--
+                    <TextBlock Text="Acquisition date:" FontWeight="Bold" />
+                    <DatePicker SelectedDate="2024-01-01" Margin="0,5,0,15" />
+
+                    -->
+    <!-- Acquisition Cost -->
+    <!--
+                    <TextBlock Text="Acquisition cost:" FontWeight="Bold" />
+                    <TextBox Text="1,250,000.00" Margin="0,5,0,15" />
+
+                    -->
+    <!-- Date of Last Registration -->
+    <!--
+                    <TextBlock Text="Date of last Registration to LTO:" FontWeight="Bold" />
+                    <DatePicker SelectedDate="2019-05-28" Margin="0,5,0,15" />
+                </StackPanel>
+            </Grid>
+
+            -->
+    <!-- Save Button -->
+    <!--
+            <Button Content="Save" HorizontalAlignment="Center" Width="100" Height="30" Margin="10,20,0,0"
+                    Background="#D3D3D3" BorderBrush="Gray" BorderThickness="1" />
+        </StackPanel>-->
 </Window>

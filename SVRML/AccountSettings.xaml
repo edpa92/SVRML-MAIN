@@ -1,0 +1,34 @@
+﻿<Window x:Class="SVRML.AccountSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SVRML"
+        mc:Ignorable="d"
+        Title="AccountSettings" Height="334.901" Width="363.861" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/road.jpg" Stretch="UniformToFill"/>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="34*"/>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="33*"/>
+            <RowDefinition Height="22*"/>
+            <RowDefinition Height="34*"/>
+            <RowDefinition Height="17*"/>
+            <RowDefinition Height="54*"/>
+            <RowDefinition Height="86*"/>
+        </Grid.RowDefinitions>
+        <Label Foreground="White"   x:Name="label" Content="CHANGE PASSWORD" HorizontalAlignment="Left" Margin="115,6,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Height="26" Width="131" FontWeight="Bold"/>
+        <Label Foreground="White"   x:Name="label1" Content="Current Password:" HorizontalAlignment="Left" Margin="6,1,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="8" Height="19" Width="82" Grid.RowSpan="2"/>
+        <PasswordBox x:Name="txtCurrentPW" HorizontalAlignment="Left" Height="23" Margin="7,4.4,0,0" Grid.Row="3" VerticalAlignment="Top" Width="334"/>
+        <Label Foreground="White"   x:Name="label2" Content="New Password:" HorizontalAlignment="Left" Margin="8,0.6,0,0" Grid.Row="4" VerticalAlignment="Top" Height="19" FontSize="8" Width="107"/>
+        <PasswordBox x:Name="txtNewPW" HorizontalAlignment="Left" Height="23" Margin="8,7,0,0" Grid.Row="5"  VerticalAlignment="Top" Width="332"/>
+        <Label Foreground="White"  x:Name="label3" Content="Retype New Passsword:" HorizontalAlignment="Left" Margin="6,31,0,0" Grid.Row="5" VerticalAlignment="Top" FontSize="8" Height="21" Width="103" Grid.RowSpan="3"/>
+        <PasswordBox x:Name="txtNewPW2" HorizontalAlignment="Left" Height="23" Margin="8,3.6,0,0" Grid.Row="7" VerticalAlignment="Top" Width="332"/>
+        <Button Style="{StaticResource RoundedButton}" x:Name="button" Content="Save" HorizontalAlignment="Left" Margin="254,37,0,0" Grid.Row="8" VerticalAlignment="Top" Width="82" Height="37" Click="button_Click"/>
+
+    </Grid>
+</Window>

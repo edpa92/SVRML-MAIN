@@ -8,7 +8,7 @@ namespace SVRML.Classes
 {
     class Vehiclecls
     {
-        DataClasses1DataContext data = new DataClasses1DataContext();
+
         public int VehicleId { set; get; }
         public int AdminId { set; get; }
         public string BrandModel { set; get; }
@@ -17,48 +17,62 @@ namespace SVRML.Classes
         public string SerialNum { set; get; }
         public DateTime AcquisitionDate { set; get; }
         public decimal AcquisitionCost { set; get; }
+        public DateTime LastLTORegistration { set; get; }
 
 
         public bool AddVehicle(Vehicle vehicle)
         {
+            using (var data = new DataClasses1DataContext())
+            {
                 data.Vehicles.InsertOnSubmit(vehicle);
                 data.SubmitChanges();
                 return true;
+            }
+           
         }
 
         public IEnumerable<Vehicle> GetAllVehicle(int adminid)
         {
-                           
-                // Query to get all users
-                var vehicle = from v in data.Vehicles
-                              where v.AdminId ==adminid
-                              select v;
-                              
+            IEnumerable<Vehicle> vehicle;
 
-                // Return the result
-                return vehicle;
+            using (var data=new DataClasses1DataContext())
+            {
+                // Query to get all users
+               vehicle = from v in data.Vehicles
+                              where v.AdminId == adminid
+                              select v;
+
+            }
+
+
+            // Return the result
+            return vehicle;            
         }
 
         
 
-        public Vehicle GetVehicle(int id)
+        public Vehicle GetVehicle(string plateno)
         {
-           
+            Vehicle vehicle;
+            using (var data = new DataClasses1DataContext())
+            {
                 // Query to get all users
-                var vehicle = data.Vehicles.SingleOrDefault(v=>v.Vehicle_ID==id);
+               vehicle = data.Vehicles.SingleOrDefault(v => v.PlateNum == plateno);
+            }
 
                 // Return the result
-                return vehicle;
-            
+            return vehicle;          
+
         }
 
 
 
         public bool UpdateVehicle(Vehicle vehicle)
         {
-          
-                var veh=data.Vehicles.SingleOrDefault(v => v.Vehicle_ID == vehicle.Vehicle_ID);
-                if (veh==null)
+            using (var data = new DataClasses1DataContext())
+            {
+                var veh = data.Vehicles.SingleOrDefault(v => v.Vehicle_ID == vehicle.Vehicle_ID);
+                if (veh == null)
                 {
                     return false;
                 }
@@ -68,15 +82,18 @@ namespace SVRML.Classes
                 veh.PlateNum = vehicle.PlateNum;
                 veh.SerialNum = vehicle.SerialNum;
                 veh.Type = vehicle.Type;
+                veh.LastLTORegistration = vehicle.LastLTORegistration;
 
                 data.SubmitChanges();
                 return true;
+            }
 
         }
 
         public bool DeleteVehicle(int vehicleId)
         {
-          
+            using (var data = new DataClasses1DataContext())
+            {
                 var veh = data.Vehicles.SingleOrDefault(v => v.Vehicle_ID == vehicleId);
                 if (veh == null)
                 {
@@ -85,6 +102,7 @@ namespace SVRML.Classes
                 data.Vehicles.DeleteOnSubmit(veh);
                 data.SubmitChanges();
                 return true;
+            }
 
         }
     }

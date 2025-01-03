@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SVRML"
         mc:Ignorable="d"
-        Title="MainWindow" Height="510.273" Width="885.396" WindowStartupLocation="CenterScreen">
+        Title="Login Window" Height="510.273" Width="885.396" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" >
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/pickupblackBlur.jpg" Stretch="UniformToFill" Opacity="80"/>
+    </Window.Background>
     <!--<Grid>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="511,90,0,0" TextWrapping="Wrap" Text="Service Vehicle Repaire Maintenance Log" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="274" TextAlignment="Center" FontFamily="Franklin Gothic Demi"/>
         <TextBox x:Name="textBoxUsername" HorizontalAlignment="Left" Height="23" Margin="540,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" AutomationProperties.HelpText="Username"/>
@@ -57,14 +60,11 @@
         </Border>
 
         <!-- Forgot Password Text -->
-        <TextBlock Text="Forgot password?" Foreground="White" 
-                   FontSize="12" HorizontalAlignment="Right" 
-                   VerticalAlignment="Top" Margin="0,260,88.2,0" Grid.Column="1"/>
 
         <!-- Login Button -->
-        <Button Content="LOG IN" Width="120" Height="40" 
+        <Button Style="{StaticResource RoundedButton}" Content="LOG IN" Width="120" Height="40" 
                 HorizontalAlignment="Right" VerticalAlignment="Top" 
-                Margin="0,305,94.2,0" Background="#AAAAAA" Foreground="White" Click="button_Click"
+                Margin="0,275,89.2,0" Background="#AAAAAA" Foreground="White" Click="button_Click"
                 FontWeight="Bold" BorderThickness="0" Cursor="Hand" Grid.Column="1"/>
         <Label x:Name="label" Content="Username" HorizontalAlignment="Left" Margin="255,130,0,0" VerticalAlignment="Top" FontSize="8" Foreground="White" Grid.Column="1"/>
         <Label x:Name="label_Copy" Content="Password:" HorizontalAlignment="Left" Margin="255,190,0,0" VerticalAlignment="Top" FontSize="8" Foreground="White" Grid.Column="1"/>

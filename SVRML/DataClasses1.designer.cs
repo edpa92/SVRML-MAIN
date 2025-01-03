@@ -30,21 +30,24 @@ namespace SVRML
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertAdministrator(Administrator instance);
-    partial void UpdateAdministrator(Administrator instance);
-    partial void DeleteAdministrator(Administrator instance);
+    partial void InsertSchedMaintenance(SchedMaintenance instance);
+    partial void UpdateSchedMaintenance(SchedMaintenance instance);
+    partial void DeleteSchedMaintenance(SchedMaintenance instance);
     partial void InsertRepairMaintenanceLog(RepairMaintenanceLog instance);
     partial void UpdateRepairMaintenanceLog(RepairMaintenanceLog instance);
     partial void DeleteRepairMaintenanceLog(RepairMaintenanceLog instance);
     partial void InsertRepairType(RepairType instance);
     partial void UpdateRepairType(RepairType instance);
     partial void DeleteRepairType(RepairType instance);
-    partial void InsertSchedMaintenance(SchedMaintenance instance);
-    partial void UpdateSchedMaintenance(SchedMaintenance instance);
-    partial void DeleteSchedMaintenance(SchedMaintenance instance);
     partial void InsertVehicle(Vehicle instance);
     partial void UpdateVehicle(Vehicle instance);
     partial void DeleteVehicle(Vehicle instance);
+    partial void InsertNotificationTbl(NotificationTbl instance);
+    partial void UpdateNotificationTbl(NotificationTbl instance);
+    partial void DeleteNotificationTbl(NotificationTbl instance);
+    partial void InsertAdministrator(Administrator instance);
+    partial void UpdateAdministrator(Administrator instance);
+    partial void DeleteAdministrator(Administrator instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -77,11 +80,11 @@ namespace SVRML
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Administrator> Administrators
+		public System.Data.Linq.Table<SchedMaintenance> SchedMaintenances
 		{
 			get
 			{
-				return this.GetTable<Administrator>();
+				return this.GetTable<SchedMaintenance>();
 			}
 		}
 		
@@ -101,14 +104,6 @@ namespace SVRML
 			}
 		}
 		
-		public System.Data.Linq.Table<SchedMaintenance> SchedMaintenances
-		{
-			get
-			{
-				return this.GetTable<SchedMaintenance>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Vehicle> Vehicles
 		{
 			get
@@ -116,142 +111,304 @@ namespace SVRML
 				return this.GetTable<Vehicle>();
 			}
 		}
+		
+		public System.Data.Linq.Table<NotificationTbl> NotificationTbls
+		{
+			get
+			{
+				return this.GetTable<NotificationTbl>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Administrator> Administrators
+		{
+			get
+			{
+				return this.GetTable<Administrator>();
+			}
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Administrator")]
-	public partial class Administrator : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SchedMaintenance")]
+	public partial class SchedMaintenance : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _AdminId;
+		private int _SchedMain_ID;
 		
-		private string _Username;
+		private int _Vehicle_ID;
 		
-		private string _AdminPw;
+		private int _Admin_ID;
 		
-		private EntitySet<RepairMaintenanceLog> _RepairMaintenanceLogs;
+		private System.DateTime _Sched_Date;
 		
-		private EntitySet<SchedMaintenance> _SchedMaintenances;
+		private int _MainInterval_Days;
 		
-		private EntitySet<Vehicle> _Vehicles;
+		private System.Nullable<System.DateTime> _NextSched_Date;
+		
+		private string _Remarks;
+		
+		private EntitySet<NotificationTbl> _NotificationTbls;
+		
+		private EntityRef<Vehicle> _Vehicle;
+		
+		private EntityRef<Administrator> _Administrator;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnAdminIdChanging(int value);
-    partial void OnAdminIdChanged();
-    partial void OnUsernameChanging(string value);
-    partial void OnUsernameChanged();
-    partial void OnAdminPwChanging(string value);
-    partial void OnAdminPwChanged();
+    partial void OnSchedMain_IDChanging(int value);
+    partial void OnSchedMain_IDChanged();
+    partial void OnVehicle_IDChanging(int value);
+    partial void OnVehicle_IDChanged();
+    partial void OnAdmin_IDChanging(int value);
+    partial void OnAdmin_IDChanged();
+    partial void OnSched_DateChanging(System.DateTime value);
+    partial void OnSched_DateChanged();
+    partial void OnMainInterval_DaysChanging(int value);
+    partial void OnMainInterval_DaysChanged();
+    partial void OnNextSched_DateChanging(System.Nullable<System.DateTime> value);
+    partial void OnNextSched_DateChanged();
+    partial void OnRemarksChanging(string value);
+    partial void OnRemarksChanged();
     #endregion
 		
-		public Administrator()
+		public SchedMaintenance()
 		{
-			this._RepairMaintenanceLogs = new EntitySet<RepairMaintenanceLog>(new Action<RepairMaintenanceLog>(this.attach_RepairMaintenanceLogs), new Action<RepairMaintenanceLog>(this.detach_RepairMaintenanceLogs));
-			this._SchedMaintenances = new EntitySet<SchedMaintenance>(new Action<SchedMaintenance>(this.attach_SchedMaintenances), new Action<SchedMaintenance>(this.detach_SchedMaintenances));
-			this._Vehicles = new EntitySet<Vehicle>(new Action<Vehicle>(this.attach_Vehicles), new Action<Vehicle>(this.detach_Vehicles));
+			this._NotificationTbls = new EntitySet<NotificationTbl>(new Action<NotificationTbl>(this.attach_NotificationTbls), new Action<NotificationTbl>(this.detach_NotificationTbls));
+			this._Vehicle = default(EntityRef<Vehicle>);
+			this._Administrator = default(EntityRef<Administrator>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdminId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int AdminId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchedMain_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int SchedMain_ID
 		{
 			get
 			{
-				return this._AdminId;
+				return this._SchedMain_ID;
 			}
 			set
 			{
-				if ((this._AdminId != value))
+				if ((this._SchedMain_ID != value))
 				{
-					this.OnAdminIdChanging(value);
+					this.OnSchedMain_IDChanging(value);
 					this.SendPropertyChanging();
-					this._AdminId = value;
-					this.SendPropertyChanged("AdminId");
-					this.OnAdminIdChanged();
+					this._SchedMain_ID = value;
+					this.SendPropertyChanged("SchedMain_ID");
+					this.OnSchedMain_IDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Username
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vehicle_ID", DbType="Int NOT NULL")]
+		public int Vehicle_ID
 		{
 			get
 			{
-				return this._Username;
+				return this._Vehicle_ID;
 			}
 			set
 			{
-				if ((this._Username != value))
+				if ((this._Vehicle_ID != value))
 				{
-					this.OnUsernameChanging(value);
+					if (this._Vehicle.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnVehicle_IDChanging(value);
 					this.SendPropertyChanging();
-					this._Username = value;
-					this.SendPropertyChanged("Username");
-					this.OnUsernameChanged();
+					this._Vehicle_ID = value;
+					this.SendPropertyChanged("Vehicle_ID");
+					this.OnVehicle_IDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdminPw", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string AdminPw
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Admin_ID", DbType="Int NOT NULL")]
+		public int Admin_ID
 		{
 			get
 			{
-				return this._AdminPw;
+				return this._Admin_ID;
 			}
 			set
 			{
-				if ((this._AdminPw != value))
+				if ((this._Admin_ID != value))
 				{
-					this.OnAdminPwChanging(value);
+					if (this._Administrator.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAdmin_IDChanging(value);
 					this.SendPropertyChanging();
-					this._AdminPw = value;
-					this.SendPropertyChanged("AdminPw");
-					this.OnAdminPwChanged();
+					this._Admin_ID = value;
+					this.SendPropertyChanged("Admin_ID");
+					this.OnAdmin_IDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_RepairMaintenanceLog", Storage="_RepairMaintenanceLogs", ThisKey="AdminId", OtherKey="Admin_ID")]
-		public EntitySet<RepairMaintenanceLog> RepairMaintenanceLogs
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sched_Date", DbType="DateTime NOT NULL")]
+		public System.DateTime Sched_Date
 		{
 			get
 			{
-				return this._RepairMaintenanceLogs;
+				return this._Sched_Date;
 			}
 			set
 			{
-				this._RepairMaintenanceLogs.Assign(value);
+				if ((this._Sched_Date != value))
+				{
+					this.OnSched_DateChanging(value);
+					this.SendPropertyChanging();
+					this._Sched_Date = value;
+					this.SendPropertyChanged("Sched_Date");
+					this.OnSched_DateChanged();
+				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_SchedMaintenance", Storage="_SchedMaintenances", ThisKey="AdminId", OtherKey="Admin_ID")]
-		public EntitySet<SchedMaintenance> SchedMaintenances
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainInterval_Days", DbType="Int NOT NULL")]
+		public int MainInterval_Days
 		{
 			get
 			{
-				return this._SchedMaintenances;
+				return this._MainInterval_Days;
 			}
 			set
 			{
-				this._SchedMaintenances.Assign(value);
+				if ((this._MainInterval_Days != value))
+				{
+					this.OnMainInterval_DaysChanging(value);
+					this.SendPropertyChanging();
+					this._MainInterval_Days = value;
+					this.SendPropertyChanged("MainInterval_Days");
+					this.OnMainInterval_DaysChanged();
+				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_Vehicle", Storage="_Vehicles", ThisKey="AdminId", OtherKey="AdminId")]
-		public EntitySet<Vehicle> Vehicles
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NextSched_Date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> NextSched_Date
 		{
 			get
 			{
-				return this._Vehicles;
+				return this._NextSched_Date;
 			}
 			set
 			{
-				this._Vehicles.Assign(value);
+				if ((this._NextSched_Date != value))
+				{
+					this.OnNextSched_DateChanging(value);
+					this.SendPropertyChanging();
+					this._NextSched_Date = value;
+					this.SendPropertyChanged("NextSched_Date");
+					this.OnNextSched_DateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remarks", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string Remarks
+		{
+			get
+			{
+				return this._Remarks;
+			}
+			set
+			{
+				if ((this._Remarks != value))
+				{
+					this.OnRemarksChanging(value);
+					this.SendPropertyChanging();
+					this._Remarks = value;
+					this.SendPropertyChanged("Remarks");
+					this.OnRemarksChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SchedMaintenance_NotificationTbl", Storage="_NotificationTbls", ThisKey="SchedMain_ID", OtherKey="SchedID")]
+		public EntitySet<NotificationTbl> NotificationTbls
+		{
+			get
+			{
+				return this._NotificationTbls;
+			}
+			set
+			{
+				this._NotificationTbls.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_SchedMaintenance", Storage="_Vehicle", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Vehicle Vehicle
+		{
+			get
+			{
+				return this._Vehicle.Entity;
+			}
+			set
+			{
+				Vehicle previousValue = this._Vehicle.Entity;
+				if (((previousValue != value) 
+							|| (this._Vehicle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Vehicle.Entity = null;
+						previousValue.SchedMaintenances.Remove(this);
+					}
+					this._Vehicle.Entity = value;
+					if ((value != null))
+					{
+						value.SchedMaintenances.Add(this);
+						this._Vehicle_ID = value.Vehicle_ID;
+					}
+					else
+					{
+						this._Vehicle_ID = default(int);
+					}
+					this.SendPropertyChanged("Vehicle");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_SchedMaintenance", Storage="_Administrator", ThisKey="Admin_ID", OtherKey="AdminId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Administrator Administrator
+		{
+			get
+			{
+				return this._Administrator.Entity;
+			}
+			set
+			{
+				Administrator previousValue = this._Administrator.Entity;
+				if (((previousValue != value) 
+							|| (this._Administrator.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Administrator.Entity = null;
+						previousValue.SchedMaintenances.Remove(this);
+					}
+					this._Administrator.Entity = value;
+					if ((value != null))
+					{
+						value.SchedMaintenances.Add(this);
+						this._Admin_ID = value.AdminId;
+					}
+					else
+					{
+						this._Admin_ID = default(int);
+					}
+					this.SendPropertyChanged("Administrator");
+				}
 			}
 		}
 		
@@ -275,40 +432,16 @@ namespace SVRML
 			}
 		}
 		
-		private void attach_RepairMaintenanceLogs(RepairMaintenanceLog entity)
+		private void attach_NotificationTbls(NotificationTbl entity)
 		{
 			this.SendPropertyChanging();
-			entity.Administrator = this;
+			entity.SchedMaintenance = this;
 		}
 		
-		private void detach_RepairMaintenanceLogs(RepairMaintenanceLog entity)
+		private void detach_NotificationTbls(NotificationTbl entity)
 		{
 			this.SendPropertyChanging();
-			entity.Administrator = null;
-		}
-		
-		private void attach_SchedMaintenances(SchedMaintenance entity)
-		{
-			this.SendPropertyChanging();
-			entity.Administrator = this;
-		}
-		
-		private void detach_SchedMaintenances(SchedMaintenance entity)
-		{
-			this.SendPropertyChanging();
-			entity.Administrator = null;
-		}
-		
-		private void attach_Vehicles(Vehicle entity)
-		{
-			this.SendPropertyChanging();
-			entity.Administrator = this;
-		}
-		
-		private void detach_Vehicles(Vehicle entity)
-		{
-			this.SendPropertyChanging();
-			entity.Administrator = null;
+			entity.SchedMaintenance = null;
 		}
 	}
 	
@@ -328,13 +461,13 @@ namespace SVRML
 		
 		private int _Milage;
 		
-		private System.Data.Linq.Binary _Remarks;
+		private string _Remarks;
 		
 		private EntitySet<RepairType> _RepairTypes;
 		
-		private EntityRef<Administrator> _Administrator;
-		
 		private EntityRef<Vehicle> _Vehicle;
+		
+		private EntityRef<Administrator> _Administrator;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -350,19 +483,19 @@ namespace SVRML
     partial void OnRepair_DateChanged();
     partial void OnMilageChanging(int value);
     partial void OnMilageChanged();
-    partial void OnRemarksChanging(System.Data.Linq.Binary value);
+    partial void OnRemarksChanging(string value);
     partial void OnRemarksChanged();
     #endregion
 		
 		public RepairMaintenanceLog()
 		{
 			this._RepairTypes = new EntitySet<RepairType>(new Action<RepairType>(this.attach_RepairTypes), new Action<RepairType>(this.detach_RepairTypes));
-			this._Administrator = default(EntityRef<Administrator>);
 			this._Vehicle = default(EntityRef<Vehicle>);
+			this._Administrator = default(EntityRef<Administrator>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepairLog_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepairLog_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int RepairLog_ID
 		{
 			get
@@ -470,8 +603,8 @@ namespace SVRML
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remarks", DbType="VarBinary(50)", UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary Remarks
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remarks", DbType="VarChar(MAX)")]
+		public string Remarks
 		{
 			get
 			{
@@ -500,40 +633,6 @@ namespace SVRML
 			set
 			{
 				this._RepairTypes.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_RepairMaintenanceLog", Storage="_Administrator", ThisKey="Admin_ID", OtherKey="AdminId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Administrator Administrator
-		{
-			get
-			{
-				return this._Administrator.Entity;
-			}
-			set
-			{
-				Administrator previousValue = this._Administrator.Entity;
-				if (((previousValue != value) 
-							|| (this._Administrator.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Administrator.Entity = null;
-						previousValue.RepairMaintenanceLogs.Remove(this);
-					}
-					this._Administrator.Entity = value;
-					if ((value != null))
-					{
-						value.RepairMaintenanceLogs.Add(this);
-						this._Admin_ID = value.AdminId;
-					}
-					else
-					{
-						this._Admin_ID = default(int);
-					}
-					this.SendPropertyChanged("Administrator");
-				}
 			}
 		}
 		
@@ -567,6 +666,40 @@ namespace SVRML
 						this._Vehicle_ID = default(int);
 					}
 					this.SendPropertyChanged("Vehicle");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_RepairMaintenanceLog", Storage="_Administrator", ThisKey="Admin_ID", OtherKey="AdminId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Administrator Administrator
+		{
+			get
+			{
+				return this._Administrator.Entity;
+			}
+			set
+			{
+				Administrator previousValue = this._Administrator.Entity;
+				if (((previousValue != value) 
+							|| (this._Administrator.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Administrator.Entity = null;
+						previousValue.RepairMaintenanceLogs.Remove(this);
+					}
+					this._Administrator.Entity = value;
+					if ((value != null))
+					{
+						value.RepairMaintenanceLogs.Add(this);
+						this._Admin_ID = value.AdminId;
+					}
+					else
+					{
+						this._Admin_ID = default(int);
+					}
+					this.SendPropertyChanged("Administrator");
 				}
 			}
 		}
@@ -656,7 +789,7 @@ namespace SVRML
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepairType_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepairType_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int RepairType_ID
 		{
 			get
@@ -875,294 +1008,6 @@ namespace SVRML
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SchedMaintenance")]
-	public partial class SchedMaintenance : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _SchedMain_ID;
-		
-		private int _Vehicle_ID;
-		
-		private int _Admin_ID;
-		
-		private System.DateTime _Sched_Date;
-		
-		private int _MainInterval_Days;
-		
-		private System.Nullable<System.DateTime> _NextSched_Date;
-		
-		private string _Remarks;
-		
-		private EntityRef<Administrator> _Administrator;
-		
-		private EntityRef<Vehicle> _Vehicle;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSchedMain_IDChanging(int value);
-    partial void OnSchedMain_IDChanged();
-    partial void OnVehicle_IDChanging(int value);
-    partial void OnVehicle_IDChanged();
-    partial void OnAdmin_IDChanging(int value);
-    partial void OnAdmin_IDChanged();
-    partial void OnSched_DateChanging(System.DateTime value);
-    partial void OnSched_DateChanged();
-    partial void OnMainInterval_DaysChanging(int value);
-    partial void OnMainInterval_DaysChanged();
-    partial void OnNextSched_DateChanging(System.Nullable<System.DateTime> value);
-    partial void OnNextSched_DateChanged();
-    partial void OnRemarksChanging(string value);
-    partial void OnRemarksChanged();
-    #endregion
-		
-		public SchedMaintenance()
-		{
-			this._Administrator = default(EntityRef<Administrator>);
-			this._Vehicle = default(EntityRef<Vehicle>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchedMain_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int SchedMain_ID
-		{
-			get
-			{
-				return this._SchedMain_ID;
-			}
-			set
-			{
-				if ((this._SchedMain_ID != value))
-				{
-					this.OnSchedMain_IDChanging(value);
-					this.SendPropertyChanging();
-					this._SchedMain_ID = value;
-					this.SendPropertyChanged("SchedMain_ID");
-					this.OnSchedMain_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vehicle_ID", DbType="Int NOT NULL")]
-		public int Vehicle_ID
-		{
-			get
-			{
-				return this._Vehicle_ID;
-			}
-			set
-			{
-				if ((this._Vehicle_ID != value))
-				{
-					if (this._Vehicle.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnVehicle_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Vehicle_ID = value;
-					this.SendPropertyChanged("Vehicle_ID");
-					this.OnVehicle_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Admin_ID", DbType="Int NOT NULL")]
-		public int Admin_ID
-		{
-			get
-			{
-				return this._Admin_ID;
-			}
-			set
-			{
-				if ((this._Admin_ID != value))
-				{
-					if (this._Administrator.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAdmin_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Admin_ID = value;
-					this.SendPropertyChanged("Admin_ID");
-					this.OnAdmin_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sched_Date", DbType="DateTime NOT NULL")]
-		public System.DateTime Sched_Date
-		{
-			get
-			{
-				return this._Sched_Date;
-			}
-			set
-			{
-				if ((this._Sched_Date != value))
-				{
-					this.OnSched_DateChanging(value);
-					this.SendPropertyChanging();
-					this._Sched_Date = value;
-					this.SendPropertyChanged("Sched_Date");
-					this.OnSched_DateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainInterval_Days", DbType="Int NOT NULL")]
-		public int MainInterval_Days
-		{
-			get
-			{
-				return this._MainInterval_Days;
-			}
-			set
-			{
-				if ((this._MainInterval_Days != value))
-				{
-					this.OnMainInterval_DaysChanging(value);
-					this.SendPropertyChanging();
-					this._MainInterval_Days = value;
-					this.SendPropertyChanged("MainInterval_Days");
-					this.OnMainInterval_DaysChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NextSched_Date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NextSched_Date
-		{
-			get
-			{
-				return this._NextSched_Date;
-			}
-			set
-			{
-				if ((this._NextSched_Date != value))
-				{
-					this.OnNextSched_DateChanging(value);
-					this.SendPropertyChanging();
-					this._NextSched_Date = value;
-					this.SendPropertyChanged("NextSched_Date");
-					this.OnNextSched_DateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remarks", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string Remarks
-		{
-			get
-			{
-				return this._Remarks;
-			}
-			set
-			{
-				if ((this._Remarks != value))
-				{
-					this.OnRemarksChanging(value);
-					this.SendPropertyChanging();
-					this._Remarks = value;
-					this.SendPropertyChanged("Remarks");
-					this.OnRemarksChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_SchedMaintenance", Storage="_Administrator", ThisKey="Admin_ID", OtherKey="AdminId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Administrator Administrator
-		{
-			get
-			{
-				return this._Administrator.Entity;
-			}
-			set
-			{
-				Administrator previousValue = this._Administrator.Entity;
-				if (((previousValue != value) 
-							|| (this._Administrator.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Administrator.Entity = null;
-						previousValue.SchedMaintenances.Remove(this);
-					}
-					this._Administrator.Entity = value;
-					if ((value != null))
-					{
-						value.SchedMaintenances.Add(this);
-						this._Admin_ID = value.AdminId;
-					}
-					else
-					{
-						this._Admin_ID = default(int);
-					}
-					this.SendPropertyChanged("Administrator");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_SchedMaintenance", Storage="_Vehicle", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Vehicle Vehicle
-		{
-			get
-			{
-				return this._Vehicle.Entity;
-			}
-			set
-			{
-				Vehicle previousValue = this._Vehicle.Entity;
-				if (((previousValue != value) 
-							|| (this._Vehicle.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Vehicle.Entity = null;
-						previousValue.SchedMaintenances.Remove(this);
-					}
-					this._Vehicle.Entity = value;
-					if ((value != null))
-					{
-						value.SchedMaintenances.Add(this);
-						this._Vehicle_ID = value.Vehicle_ID;
-					}
-					else
-					{
-						this._Vehicle_ID = default(int);
-					}
-					this.SendPropertyChanged("Vehicle");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Vehicle")]
 	public partial class Vehicle : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1185,9 +1030,11 @@ namespace SVRML
 		
 		private decimal _AcquisitionCost;
 		
-		private EntitySet<RepairMaintenanceLog> _RepairMaintenanceLogs;
+		private System.Nullable<System.DateTime> _LastLTORegistration;
 		
 		private EntitySet<SchedMaintenance> _SchedMaintenances;
+		
+		private EntitySet<RepairMaintenanceLog> _RepairMaintenanceLogs;
 		
 		private EntityRef<Administrator> _Administrator;
 		
@@ -1211,12 +1058,14 @@ namespace SVRML
     partial void OnAcquisitionDateChanged();
     partial void OnAcquisitionCostChanging(decimal value);
     partial void OnAcquisitionCostChanged();
+    partial void OnLastLTORegistrationChanging(System.Nullable<System.DateTime> value);
+    partial void OnLastLTORegistrationChanged();
     #endregion
 		
 		public Vehicle()
 		{
-			this._RepairMaintenanceLogs = new EntitySet<RepairMaintenanceLog>(new Action<RepairMaintenanceLog>(this.attach_RepairMaintenanceLogs), new Action<RepairMaintenanceLog>(this.detach_RepairMaintenanceLogs));
 			this._SchedMaintenances = new EntitySet<SchedMaintenance>(new Action<SchedMaintenance>(this.attach_SchedMaintenances), new Action<SchedMaintenance>(this.detach_SchedMaintenances));
+			this._RepairMaintenanceLogs = new EntitySet<RepairMaintenanceLog>(new Action<RepairMaintenanceLog>(this.attach_RepairMaintenanceLogs), new Action<RepairMaintenanceLog>(this.detach_RepairMaintenanceLogs));
 			this._Administrator = default(EntityRef<Administrator>);
 			OnCreated();
 		}
@@ -1285,7 +1134,7 @@ namespace SVRML
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlateNum", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlateNum", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string PlateNum
 		{
 			get
@@ -1385,16 +1234,23 @@ namespace SVRML
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_RepairMaintenanceLog", Storage="_RepairMaintenanceLogs", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID")]
-		public EntitySet<RepairMaintenanceLog> RepairMaintenanceLogs
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastLTORegistration", DbType="Date")]
+		public System.Nullable<System.DateTime> LastLTORegistration
 		{
 			get
 			{
-				return this._RepairMaintenanceLogs;
+				return this._LastLTORegistration;
 			}
 			set
 			{
-				this._RepairMaintenanceLogs.Assign(value);
+				if ((this._LastLTORegistration != value))
+				{
+					this.OnLastLTORegistrationChanging(value);
+					this.SendPropertyChanging();
+					this._LastLTORegistration = value;
+					this.SendPropertyChanged("LastLTORegistration");
+					this.OnLastLTORegistrationChanged();
+				}
 			}
 		}
 		
@@ -1408,6 +1264,19 @@ namespace SVRML
 			set
 			{
 				this._SchedMaintenances.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_RepairMaintenanceLog", Storage="_RepairMaintenanceLogs", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID")]
+		public EntitySet<RepairMaintenanceLog> RepairMaintenanceLogs
+		{
+			get
+			{
+				return this._RepairMaintenanceLogs;
+			}
+			set
+			{
+				this._RepairMaintenanceLogs.Assign(value);
 			}
 		}
 		
@@ -1465,6 +1334,18 @@ namespace SVRML
 			}
 		}
 		
+		private void attach_SchedMaintenances(SchedMaintenance entity)
+		{
+			this.SendPropertyChanging();
+			entity.Vehicle = this;
+		}
+		
+		private void detach_SchedMaintenances(SchedMaintenance entity)
+		{
+			this.SendPropertyChanging();
+			entity.Vehicle = null;
+		}
+		
 		private void attach_RepairMaintenanceLogs(RepairMaintenanceLog entity)
 		{
 			this.SendPropertyChanging();
@@ -1476,17 +1357,398 @@ namespace SVRML
 			this.SendPropertyChanging();
 			entity.Vehicle = null;
 		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NotificationTbl")]
+	public partial class NotificationTbl : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _NotiId;
+		
+		private string _Details;
+		
+		private System.DateTime _DateNotified;
+		
+		private int _SchedID;
+		
+		private EntityRef<SchedMaintenance> _SchedMaintenance;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNotiIdChanging(int value);
+    partial void OnNotiIdChanged();
+    partial void OnDetailsChanging(string value);
+    partial void OnDetailsChanged();
+    partial void OnDateNotifiedChanging(System.DateTime value);
+    partial void OnDateNotifiedChanged();
+    partial void OnSchedIDChanging(int value);
+    partial void OnSchedIDChanged();
+    #endregion
+		
+		public NotificationTbl()
+		{
+			this._SchedMaintenance = default(EntityRef<SchedMaintenance>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotiId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int NotiId
+		{
+			get
+			{
+				return this._NotiId;
+			}
+			set
+			{
+				if ((this._NotiId != value))
+				{
+					this.OnNotiIdChanging(value);
+					this.SendPropertyChanging();
+					this._NotiId = value;
+					this.SendPropertyChanged("NotiId");
+					this.OnNotiIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Details", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Details
+		{
+			get
+			{
+				return this._Details;
+			}
+			set
+			{
+				if ((this._Details != value))
+				{
+					this.OnDetailsChanging(value);
+					this.SendPropertyChanging();
+					this._Details = value;
+					this.SendPropertyChanged("Details");
+					this.OnDetailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateNotified", DbType="DateTime NOT NULL")]
+		public System.DateTime DateNotified
+		{
+			get
+			{
+				return this._DateNotified;
+			}
+			set
+			{
+				if ((this._DateNotified != value))
+				{
+					this.OnDateNotifiedChanging(value);
+					this.SendPropertyChanging();
+					this._DateNotified = value;
+					this.SendPropertyChanged("DateNotified");
+					this.OnDateNotifiedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchedID", DbType="Int NOT NULL")]
+		public int SchedID
+		{
+			get
+			{
+				return this._SchedID;
+			}
+			set
+			{
+				if ((this._SchedID != value))
+				{
+					if (this._SchedMaintenance.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSchedIDChanging(value);
+					this.SendPropertyChanging();
+					this._SchedID = value;
+					this.SendPropertyChanged("SchedID");
+					this.OnSchedIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SchedMaintenance_NotificationTbl", Storage="_SchedMaintenance", ThisKey="SchedID", OtherKey="SchedMain_ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public SchedMaintenance SchedMaintenance
+		{
+			get
+			{
+				return this._SchedMaintenance.Entity;
+			}
+			set
+			{
+				SchedMaintenance previousValue = this._SchedMaintenance.Entity;
+				if (((previousValue != value) 
+							|| (this._SchedMaintenance.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SchedMaintenance.Entity = null;
+						previousValue.NotificationTbls.Remove(this);
+					}
+					this._SchedMaintenance.Entity = value;
+					if ((value != null))
+					{
+						value.NotificationTbls.Add(this);
+						this._SchedID = value.SchedMain_ID;
+					}
+					else
+					{
+						this._SchedID = default(int);
+					}
+					this.SendPropertyChanged("SchedMaintenance");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Administrator")]
+	public partial class Administrator : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _AdminId;
+		
+		private string _Username;
+		
+		private string _AdminPw;
+		
+		private System.Nullable<int> _NoDaysNotifyBeforeSched;
+		
+		private EntitySet<SchedMaintenance> _SchedMaintenances;
+		
+		private EntitySet<RepairMaintenanceLog> _RepairMaintenanceLogs;
+		
+		private EntitySet<Vehicle> _Vehicles;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAdminIdChanging(int value);
+    partial void OnAdminIdChanged();
+    partial void OnUsernameChanging(string value);
+    partial void OnUsernameChanged();
+    partial void OnAdminPwChanging(string value);
+    partial void OnAdminPwChanged();
+    partial void OnNoDaysNotifyBeforeSchedChanging(System.Nullable<int> value);
+    partial void OnNoDaysNotifyBeforeSchedChanged();
+    #endregion
+		
+		public Administrator()
+		{
+			this._SchedMaintenances = new EntitySet<SchedMaintenance>(new Action<SchedMaintenance>(this.attach_SchedMaintenances), new Action<SchedMaintenance>(this.detach_SchedMaintenances));
+			this._RepairMaintenanceLogs = new EntitySet<RepairMaintenanceLog>(new Action<RepairMaintenanceLog>(this.attach_RepairMaintenanceLogs), new Action<RepairMaintenanceLog>(this.detach_RepairMaintenanceLogs));
+			this._Vehicles = new EntitySet<Vehicle>(new Action<Vehicle>(this.attach_Vehicles), new Action<Vehicle>(this.detach_Vehicles));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdminId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int AdminId
+		{
+			get
+			{
+				return this._AdminId;
+			}
+			set
+			{
+				if ((this._AdminId != value))
+				{
+					this.OnAdminIdChanging(value);
+					this.SendPropertyChanging();
+					this._AdminId = value;
+					this.SendPropertyChanged("AdminId");
+					this.OnAdminIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Username
+		{
+			get
+			{
+				return this._Username;
+			}
+			set
+			{
+				if ((this._Username != value))
+				{
+					this.OnUsernameChanging(value);
+					this.SendPropertyChanging();
+					this._Username = value;
+					this.SendPropertyChanged("Username");
+					this.OnUsernameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdminPw", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string AdminPw
+		{
+			get
+			{
+				return this._AdminPw;
+			}
+			set
+			{
+				if ((this._AdminPw != value))
+				{
+					this.OnAdminPwChanging(value);
+					this.SendPropertyChanging();
+					this._AdminPw = value;
+					this.SendPropertyChanged("AdminPw");
+					this.OnAdminPwChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoDaysNotifyBeforeSched", DbType="Int")]
+		public System.Nullable<int> NoDaysNotifyBeforeSched
+		{
+			get
+			{
+				return this._NoDaysNotifyBeforeSched;
+			}
+			set
+			{
+				if ((this._NoDaysNotifyBeforeSched != value))
+				{
+					this.OnNoDaysNotifyBeforeSchedChanging(value);
+					this.SendPropertyChanging();
+					this._NoDaysNotifyBeforeSched = value;
+					this.SendPropertyChanged("NoDaysNotifyBeforeSched");
+					this.OnNoDaysNotifyBeforeSchedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_SchedMaintenance", Storage="_SchedMaintenances", ThisKey="AdminId", OtherKey="Admin_ID")]
+		public EntitySet<SchedMaintenance> SchedMaintenances
+		{
+			get
+			{
+				return this._SchedMaintenances;
+			}
+			set
+			{
+				this._SchedMaintenances.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_RepairMaintenanceLog", Storage="_RepairMaintenanceLogs", ThisKey="AdminId", OtherKey="Admin_ID")]
+		public EntitySet<RepairMaintenanceLog> RepairMaintenanceLogs
+		{
+			get
+			{
+				return this._RepairMaintenanceLogs;
+			}
+			set
+			{
+				this._RepairMaintenanceLogs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_Vehicle", Storage="_Vehicles", ThisKey="AdminId", OtherKey="AdminId")]
+		public EntitySet<Vehicle> Vehicles
+		{
+			get
+			{
+				return this._Vehicles;
+			}
+			set
+			{
+				this._Vehicles.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
 		
 		private void attach_SchedMaintenances(SchedMaintenance entity)
 		{
 			this.SendPropertyChanging();
-			entity.Vehicle = this;
+			entity.Administrator = this;
 		}
 		
 		private void detach_SchedMaintenances(SchedMaintenance entity)
 		{
 			this.SendPropertyChanging();
-			entity.Vehicle = null;
+			entity.Administrator = null;
+		}
+		
+		private void attach_RepairMaintenanceLogs(RepairMaintenanceLog entity)
+		{
+			this.SendPropertyChanging();
+			entity.Administrator = this;
+		}
+		
+		private void detach_RepairMaintenanceLogs(RepairMaintenanceLog entity)
+		{
+			this.SendPropertyChanging();
+			entity.Administrator = null;
+		}
+		
+		private void attach_Vehicles(Vehicle entity)
+		{
+			this.SendPropertyChanging();
+			entity.Administrator = this;
+		}
+		
+		private void detach_Vehicles(Vehicle entity)
+		{
+			this.SendPropertyChanging();
+			entity.Administrator = null;
 		}
 	}
 }

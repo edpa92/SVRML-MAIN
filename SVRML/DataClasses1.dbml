@@ -1,31 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SVRML_DB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=SVRML_DB;Integrated Security=True;Pooling=False" SettingsObjectName="SVRML.Properties.Settings" SettingsPropertyName="SVRML_DBConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Administrator" Member="Administrators">
-    <Type Name="Administrator">
-      <Column Name="AdminId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="AdminPw" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Administrator_RepairMaintenanceLog" Member="RepairMaintenanceLogs" ThisKey="AdminId" OtherKey="Admin_ID" Type="RepairMaintenanceLog" />
-      <Association Name="Administrator_SchedMaintenance" Member="SchedMaintenances" ThisKey="AdminId" OtherKey="Admin_ID" Type="SchedMaintenance" />
-      <Association Name="Administrator_Vehicle" Member="Vehicles" ThisKey="AdminId" OtherKey="AdminId" Type="Vehicle" />
+  <Table Name="dbo.SchedMaintenance" Member="SchedMaintenances">
+    <Type Name="SchedMaintenance">
+      <Column Name="SchedMain_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Vehicle_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Admin_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sched_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="MainInterval_Days" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NextSched_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="SchedMaintenance_NotificationTbl" Member="NotificationTbls" ThisKey="SchedMain_ID" OtherKey="SchedID" Type="NotificationTbl" />
+      <Association Name="Vehicle_SchedMaintenance" Member="Vehicle" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="Vehicle" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Administrator_SchedMaintenance" Member="Administrator" ThisKey="Admin_ID" OtherKey="AdminId" Type="Administrator" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.RepairMaintenanceLog" Member="RepairMaintenanceLogs">
     <Type Name="RepairMaintenanceLog">
-      <Column Name="RepairLog_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RepairLog_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Vehicle_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Admin_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Repair_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="Milage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Remarks" Type="System.Data.Linq.Binary" DbType="VarBinary(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Remarks" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Association Name="RepairMaintenanceLog_RepairType" Member="RepairTypes" ThisKey="RepairLog_ID" OtherKey="RepairLogID" Type="RepairType" />
-      <Association Name="Administrator_RepairMaintenanceLog" Member="Administrator" ThisKey="Admin_ID" OtherKey="AdminId" Type="Administrator" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Vehicle_RepairMaintenanceLog" Member="Vehicle" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="Vehicle" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Administrator_RepairMaintenanceLog" Member="Administrator" ThisKey="Admin_ID" OtherKey="AdminId" Type="Administrator" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.RepairType" Member="RepairTypes">
     <Type Name="RepairType">
-      <Column Name="RepairType_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RepairType_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="RepairLogID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Change_Oil" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="Replace_Tire" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
@@ -36,32 +40,40 @@
       <Association Name="RepairMaintenanceLog_RepairType" Member="RepairMaintenanceLog" ThisKey="RepairLogID" OtherKey="RepairLog_ID" Type="RepairMaintenanceLog" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SchedMaintenance" Member="SchedMaintenances">
-    <Type Name="SchedMaintenance">
-      <Column Name="SchedMain_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Vehicle_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Admin_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Sched_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="MainInterval_Days" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NextSched_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Remarks" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="Administrator_SchedMaintenance" Member="Administrator" ThisKey="Admin_ID" OtherKey="AdminId" Type="Administrator" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="Vehicle_SchedMaintenance" Member="Vehicle" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="Vehicle" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Vehicle" Member="Vehicles">
     <Type Name="Vehicle">
       <Column Name="Vehicle_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="AdminId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BrandModel" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="PlateNum" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PlateNum" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Type" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="SerialNum" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="AcquisitionDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="AcquisitionCost" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Association Name="Vehicle_RepairMaintenanceLog" Member="RepairMaintenanceLogs" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="RepairMaintenanceLog" />
+      <Column Name="LastLTORegistration" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="Vehicle_SchedMaintenance" Member="SchedMaintenances" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="SchedMaintenance" />
+      <Association Name="Vehicle_RepairMaintenanceLog" Member="RepairMaintenanceLogs" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="RepairMaintenanceLog" />
       <Association Name="Administrator_Vehicle" Member="Administrator" ThisKey="AdminId" OtherKey="AdminId" Type="Administrator" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NotificationTbl" Member="NotificationTbls">
+    <Type Name="NotificationTbl">
+      <Column Name="NotiId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Details" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateNotified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SchedID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="SchedMaintenance_NotificationTbl" Member="SchedMaintenance" ThisKey="SchedID" OtherKey="SchedMain_ID" Type="SchedMaintenance" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Administrator" Member="Administrators">
+    <Type Name="Administrator">
+      <Column Name="AdminId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AdminPw" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NoDaysNotifyBeforeSched" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Administrator_SchedMaintenance" Member="SchedMaintenances" ThisKey="AdminId" OtherKey="Admin_ID" Type="SchedMaintenance" />
+      <Association Name="Administrator_RepairMaintenanceLog" Member="RepairMaintenanceLogs" ThisKey="AdminId" OtherKey="Admin_ID" Type="RepairMaintenanceLog" />
+      <Association Name="Administrator_Vehicle" Member="Vehicles" ThisKey="AdminId" OtherKey="AdminId" Type="Vehicle" />
     </Type>
   </Table>
 </Database>

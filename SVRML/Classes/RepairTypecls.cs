@@ -29,13 +29,23 @@ namespace SVRML.Classes
             }
         }
 
-        public IEnumerable<RepairType> GetRepType(int maintlogid)
+        public IEnumerable<RepairType> GetAllRepType(int maintlogid)
         {
-            using (var data= new DataClasses1DataContext())
+            using (var data = new DataClasses1DataContext())
             {
                 var re = from r in data.RepairTypes
                          where r.RepairLogID == maintlogid
                          select r;
+                return re;
+            }
+        }
+
+
+        public RepairType GetRepType(int maintlogid)
+        {
+            using (var data = new DataClasses1DataContext())
+            {
+                var re = data.RepairTypes.SingleOrDefault(t=>t.RepairLogID==maintlogid);
                 return re;
             }
         }

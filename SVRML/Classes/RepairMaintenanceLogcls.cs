@@ -15,38 +15,45 @@ namespace SVRML.Classes
         public int Milage { set; get; }
         public string Remarks { set; get; }
 
-        public bool AddRepairLog(RepairMaintenanceLog replog)
+        public int AddRepairLog(RepairMaintenanceLog replog)
         {
-            using (var data=new DataClasses1DataContext())
+            using (var data = new DataClasses1DataContext())
             {
+
                 data.RepairMaintenanceLogs.InsertOnSubmit(replog);
                 data.SubmitChanges();
 
-                return true;
+                return replog.RepairLog_ID;
             }
+            
 
         }
 
         public IEnumerable<RepairMaintenanceLog> GetAllRepairLog(int vehicleid)
         {
-            using (var data=new DataClasses1DataContext())
+            IEnumerable<RepairMaintenanceLog> rl;
+            using (var data = new DataClasses1DataContext())
             {
-                var rl = from r in data.RepairMaintenanceLogs
+                rl = from r in data.RepairMaintenanceLogs
                          where r.Vehicle_ID == vehicleid
                          select r;
 
-                return rl;
             }
+
+                return rl;
+            
         }
 
         public RepairMaintenanceLog GetRepairLog(int id)
         {
+            RepairMaintenanceLog rl;
             using (var data = new DataClasses1DataContext())
             {
-                var rl = data.RepairMaintenanceLogs.SingleOrDefault(r=>r.RepairLog_ID==id);
+                rl = data.RepairMaintenanceLogs.SingleOrDefault(r => r.RepairLog_ID == id);
+            }
 
                 return rl;
-            }
+            
         }
 
 
@@ -54,8 +61,9 @@ namespace SVRML.Classes
         {
             using (var data = new DataClasses1DataContext())
             {
-                var rl=data.RepairMaintenanceLogs.SingleOrDefault(r => r.RepairLog_ID == replog.RepairLog_ID);
-                if (rl==null)
+
+                var rl = data.RepairMaintenanceLogs.SingleOrDefault(r => r.RepairLog_ID == replog.RepairLog_ID);
+                if (rl == null)
                 {
                     return false;
                 }
@@ -66,6 +74,7 @@ namespace SVRML.Classes
                 data.SubmitChanges();
                 return true;
             }
+           
 
         }
 
@@ -73,6 +82,7 @@ namespace SVRML.Classes
         {
             using (var data = new DataClasses1DataContext())
             {
+
                 var rl = data.RepairMaintenanceLogs.SingleOrDefault(r => r.RepairLog_ID == id);
                 if (rl == null)
                 {
@@ -82,6 +92,7 @@ namespace SVRML.Classes
                 data.SubmitChanges();
                 return true;
             }
+           
 
         }
 
