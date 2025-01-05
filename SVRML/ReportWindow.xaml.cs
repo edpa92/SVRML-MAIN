@@ -41,8 +41,8 @@ namespace SVRML
                                  join log in data.RepairMaintenanceLogs on v.Vehicle_ID equals log.Vehicle_ID
                                  join rt in data.RepairTypes on log.RepairLog_ID equals rt.RepairLogID
                                  where v.Vehicle_ID == Convert.ToInt32(this.vehicleid) && log.Repair_Date.Year==Convert.ToInt32(comboBoxYears.SelectedItem.ToString())
-                                 select new { Vehicle = v.PlateNum + " " + v.BrandModel, Odometer = log.Milage + "km", v.LastLTORegistration, log.Repair_Date, RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : ""), log.Remarks };
-
+                                 select new { Vehicle = v.PlateNum + " " + v.Brand+" "+v.Model, Odometer = log.Milage + "km", v.LastLTORegistration, log.Repair_Date, RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : ""), log.Remarks };
+                     
                    listViewReport.ItemsSource = vehlog;
                     dataGridReport.ItemsSource = vehlog;
 
@@ -62,13 +62,18 @@ namespace SVRML
                              join log in data.RepairMaintenanceLogs on v.Vehicle_ID equals log.Vehicle_ID
                              join rt in data.RepairTypes on log.RepairLog_ID equals rt.RepairLogID
                              where v.Vehicle_ID == Convert.ToInt32(this.vehicleid)
-                             select new { Vehicle = v.PlateNum + " " + v.BrandModel, Odometer = log.Milage + "km", v.LastLTORegistration, log.Repair_Date, RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : ""), log.Remarks };
-
-                listViewReport.ItemsSource = vehlog;
-                dataGridReport.ItemsSource = vehlog;
-                labelVehicleReportPlate.Content = vehlog.FirstOrDefault().Vehicle;
-                labelVehicleReportLTO.Content = vehlog.FirstOrDefault().LastLTORegistration;
-
+                             select new { Vehicle = v.PlateNum + " " + v.Brand+" "+v.Model, Odometer = log.Milage + "km", v.LastLTORegistration, log.Repair_Date, RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : ""), log.Remarks };
+                if (vehlog != null)
+                {
+                    listViewReport.ItemsSource = vehlog;
+                    dataGridReport.ItemsSource = vehlog;
+                    labelVehicleReportPlate.Content = vehlog.FirstOrDefault().Vehicle;
+                    labelVehicleReportLTO.Content = vehlog.FirstOrDefault().LastLTORegistration;
+                }
+                else
+                {
+                    MessageBox.Show("No data");
+                }
 
                 var years = (from y in vehlog
                             select new { Years = y.Repair_Date.Year}).ToList();

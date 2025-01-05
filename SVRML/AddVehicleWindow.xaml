@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SVRML"
         mc:Ignorable="d"
-        Title="AddVehicleWindow" Height="349.4" Width="367.8" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="AddVehicleWindow" Height="374.481" Width="367.8" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/road.jpg" Stretch="UniformToFill"/>
     </Window.Background>
     <Grid Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -118,21 +119,25 @@
         </ComboBox>
 
         <!-- Serial No. -->
-        <Label Foreground="White" Content="Serial No.:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
-        <TextBox Name="textBox2" Grid.Row="3" Grid.Column="1" Margin="5" />
+        <Label Foreground="White" Content="Car Model:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Name="textBoxCarModel" Grid.Row="3" Grid.Column="1" Margin="5" />
+        
+        <!-- Serial No. -->
+        <Label Foreground="White" Content="Serial No.:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Name="textBox2" Grid.Row="4" Grid.Column="1" Margin="5" />
 
         <!-- Cost -->
-        <Label Foreground="White" Content="Cost:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
-        <TextBox Name="textBox4" Grid.Row="4" Grid.Column="1" Margin="5" />
+        <Label Foreground="White" Content="Cost:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Name="textBox4" Grid.Row="5" Grid.Column="1" Margin="5" />
 
         <!-- Date acquired -->
-        <Label Foreground="White" Content="Date acquired:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
-        <DatePicker Name="dateTimePicker1" Grid.Row="5" Grid.Column="1" Margin="5" FirstDayOfWeek="Monday" SelectedDateFormat="Long" />
+        <Label Foreground="White" Content="Date acquired:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+        <DatePicker Name="dateTimePicker1" Grid.Row="6" Grid.Column="1" Margin="5" FirstDayOfWeek="Monday" SelectedDateFormat="Long" />
         <!-- Date acquired -->
-        <Label Foreground="White" Content="Last LTO Registration:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
-        <DatePicker Name="dateTimePicker2" Grid.Row="6" Grid.Column="1" Margin="5" FirstDayOfWeek="Monday" SelectedDateFormat="Long" />
+        <Label Foreground="White" Content="Last LTO Registration:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+        <DatePicker Name="dateTimePicker2" Grid.Row="7" Grid.Column="1" Margin="5" FirstDayOfWeek="Monday" SelectedDateFormat="Long" />
 
         <!-- Save Button -->
-        <Button Style="{StaticResource RoundedButton}" Content="Save" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" Width="91" Margin="0,8.6,4.6,-2" Click="Button_Click"/>
+        <Button Style="{StaticResource RoundedButton}" Content="Save" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" Width="91" Margin="0,8.6,4.6,-2" Click="Button_Click"/>
     </Grid>
 </Window>

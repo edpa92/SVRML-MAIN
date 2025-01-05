@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
-        Title="Dashboard" Height="657.2" Width="1094.2" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" FontFamily="Agency FB" Closing="Window_Closing">
+        Title="Dashboard" Height="657.2" Width="1147" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" FontFamily="Agency FB" Closing="Window_Closing">
 
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/road.jpg" Stretch="UniformToFill"/>
@@ -108,7 +108,7 @@
             <!--<TextBox AcceptsReturn="True" Margin="0,100.4,0,0.4" />-->
         </DockPanel>
         <!-- Display a FontAwesome Icon -->
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="585" Margin="253,34,0,0" VerticalAlignment="Top" Width="824" HorizontalContentAlignment="Center" SelectionChanged="tabControl_SelectionChanged_1" FontSize="15">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="585" Margin="253,34,0,0" VerticalAlignment="Top" Width="879" HorizontalContentAlignment="Center" SelectionChanged="tabControl_SelectionChanged_1" FontSize="15">
             <!-- Align Tabs to the Right -->
 
             <TabControl.Background>
@@ -122,31 +122,32 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="C:\Users\edpa9\documents\visual studio 2015\Projects\SVRML\SVRML\icons\automotive-36.png" Width="16" Height="16"/>
+                        <Image Source="pack://application:,,,/SVRML;component/icons/automotive-36.png" Width="16" Height="16"/>
                         <TextBlock Text="Mintenance Log" Margin="5,0,0,0"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="231*"/>
+                        <ColumnDefinition Width="178*"/>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Opacity="0.5" x:Name="groupBox" Header="" HorizontalAlignment="Left" Margin="268,6,0,0" VerticalAlignment="Top" Height="91" Width="545" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Padding="0" FontFamily="Segoe UI"/>
-                    <Label Foreground="White" Content="Maintenance Logs" VerticalAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="55,7,0,0" Height="41" FontFamily="Segoe UI" FontSize="20" />
-                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnNewMaintenance" Content="Add Maintenance" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,49,671.4,464" Width="124" Click="Button_Click_1" RenderTransformOrigin="0.502,0.503" IsEnabled="False" FontSize="14" FontFamily="Agency FB" />
+                    <GroupBox Opacity="0.5" x:Name="groupBox" Header="" HorizontalAlignment="Left" Margin="243,6,0,0" VerticalAlignment="Top" Height="91" Width="618" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Padding="0" FontFamily="Segoe UI" Grid.ColumnSpan="2"/>
+                    <Label Foreground="White" Content="Maintenance Logs" VerticalAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="31,7,0,0" Height="41" FontFamily="Segoe UI" FontSize="20" />
+                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnNewMaintenance" Content="Add Maintenance" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,50,356.8,463" Width="124" Click="Button_Click_1" RenderTransformOrigin="0.502,0.503" IsEnabled="False" FontSize="14" FontFamily="Agency FB" />
                     <!--<DataGrid ColumnWidth="*" x:Name="dataGridMaintenanceLog" Margin="4,106,11.4,275.8" MouseDoubleClick="dataGridMaintenanceLog_MouseDoubleClick" SelectedCellsChanged="dataGridMaintenanceLog_SelectedCellsChanged"   />-->
-                    <Label Foreground="Wheat" Content="Double click every row to view other details." Margin="5,531,162.4,-3" RenderTransformOrigin="0.5,0.5" FontSize="12" FontFamily="Segoe UI"  />
-                    <DatePicker x:Name="dtpFrom" HorizontalAlignment="Left" Margin="323,32,0,0" VerticalAlignment="Top" Width="163" RenderTransformOrigin="0.367,0.388" FontFamily="Segoe UI"/>
-                    <Label x:Name="label1" Content="From:" HorizontalAlignment="Left" Margin="279,30,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
-                    <Label x:Name="label4" Content="To:" HorizontalAlignment="Left" Margin="494,30,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
-                    <DatePicker x:Name="dtpTo" HorizontalAlignment="Left" Margin="519,32,0,0" VerticalAlignment="Top" Width="210" FontSize="14" FontFamily="Segoe UI"/>
-                    <RadioButton x:Name="cbAirfilter" Content="Change AirFilter" HorizontalAlignment="Left" Margin="279,70,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
-                    <RadioButton x:Name="cbTire" Content="Change Tire" HorizontalAlignment="Left" Margin="403,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
-                    <RadioButton x:Name="cbBelt" Content="Change Belt" HorizontalAlignment="Left" Margin="504,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
-                    <RadioButton x:Name="cbBreak" Content="Change Brakpad" HorizontalAlignment="Left" Margin="606,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
-                    <RadioButton x:Name="cbOil" Content="Change Oil" HorizontalAlignment="Left" Margin="733,74,0,0" VerticalAlignment="Top" FontSize="12" Width="84" FontFamily="Segoe UI"/>
-                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnApplyFilter" Content="FIlter" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,31,12.4,494" Width="72"  RenderTransformOrigin="0.687,0.894" IsEnabled="False" Click="btnApplyFilter_Click" FontSize="14" FontFamily="Agency FB" />
-                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnReport" Content="Report" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,51,577.4,465" Width="85" RenderTransformOrigin="0.502,0.503" IsEnabled="False" Click="btnReport_Click" FontSize="14" FontFamily="Agency FB" />
-                    <ListView Opacity="0.6" x:Name="listView" HorizontalAlignment="Left" Height="421" Margin="3,110,0,0" VerticalAlignment="Top" Width="803" FontSize="16" MouseDoubleClick="listView_MouseDoubleClick" SelectionMode="Single" SelectionChanged="listView_SelectionChanged" FontFamily="Segoe UI">
+                    <Label Foreground="Wheat" Content="Double click every row to view other details." Margin="5,531,162.4,-3" RenderTransformOrigin="0.5,0.5" FontSize="12" FontFamily="Segoe UI" Grid.ColumnSpan="2"  />
+                    <DatePicker x:Name="dtpFrom" HorizontalAlignment="Left" Margin="295,31,0,0" VerticalAlignment="Top" Width="163" RenderTransformOrigin="0.367,0.388" FontFamily="Segoe UI"/>
+                    <Label x:Name="label1" Content="From:" HorizontalAlignment="Left" Margin="251,29,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <Label x:Name="label4" Content="To:" HorizontalAlignment="Left" Margin="461,30,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <DatePicker x:Name="dtpTo" HorizontalAlignment="Left" Margin="486,32,0,0" VerticalAlignment="Top" Width="210" FontSize="14" FontFamily="Segoe UI" Grid.ColumnSpan="2"/>
+                    <RadioButton x:Name="cbAirfilter" Content="Change AirFilter" HorizontalAlignment="Left" Margin="248,70,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <RadioButton x:Name="cbTire" Content="Change Tire" HorizontalAlignment="Left" Margin="371,69,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
+                    <RadioButton x:Name="cbBelt" Content="Change Belt" HorizontalAlignment="Left" Margin="476,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI" Grid.ColumnSpan="2"/>
+                    <RadioButton x:Name="cbBreak" Content="Change Brakpad" HorizontalAlignment="Left" Margin="85.2,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI" Grid.Column="1"/>
+                    <RadioButton x:Name="cbOil" Content="Change Oil" HorizontalAlignment="Left" Margin="216.2,74,0,0" VerticalAlignment="Top" FontSize="12" Width="84" FontFamily="Segoe UI" Grid.Column="1"/>
+                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnApplyFilter" Content="FIlter" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,32,61.8,493" Width="72"  RenderTransformOrigin="0.687,0.894" IsEnabled="False" Click="btnApplyFilter_Click" FontSize="14" FontFamily="Agency FB" Grid.Column="1" />
+                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnReport" Content="Report" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,52,259.8,464" Width="85" RenderTransformOrigin="0.502,0.503" IsEnabled="False" Click="btnReport_Click" FontSize="14" FontFamily="Agency FB" />
+                    <ListView Opacity="0.6" x:Name="listView" HorizontalAlignment="Left" Height="421" Margin="3,110,0,0" VerticalAlignment="Top" Width="852" FontSize="16" MouseDoubleClick="listView_MouseDoubleClick" SelectionMode="Single" SelectionChanged="listView_SelectionChanged" FontFamily="Segoe UI" Grid.ColumnSpan="2">
 
                         <!--<ListView.Background>
                             <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/road.jpg" Stretch="UniformToFill" Opacity="80"/>
@@ -157,17 +158,19 @@
                                 <GridViewColumn Header="Repaire Date" DisplayMemberBinding="{Binding RepairDate}" Width="220" />
                                 <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding Cost}" Width="80" />
                                 <GridViewColumn Header="Milage" DisplayMemberBinding="{Binding Milage}" Width="80" />
-                                <GridViewColumn Header="RepairType" DisplayMemberBinding="{Binding RepairType}" Width="500" />
+                                <GridViewColumn Header="RepairType" DisplayMemberBinding="{Binding RepairType}" Width="200" />
+                                <GridViewColumn Header="Remarks" DisplayMemberBinding="{Binding Remarks}" Width="500" />
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <RadioButton x:Name="cbOther" Content="Others" HorizontalAlignment="Left" Margin="300.2,76,-4.2,0" VerticalAlignment="Top" FontSize="12" Width="84" FontFamily="Segoe UI" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <!-- SCHED TAB-->
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="C:\Users\edpa9\documents\visual studio 2015\Projects\SVRML\SVRML\icons\calendar.png" Width="16" Height="16"/>
+                        <Image Source="pack://application:,,,/SVRML;component/icons/calendar.png" Width="16" Height="16"/>
                         <TextBlock Text="Schedule" Margin="5,0,0,0"/>
                     </StackPanel>
                 </TabItem.Header>
@@ -179,7 +182,7 @@
                     <Label Foreground="White" Content="Schedule Maintenance" VerticalAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="21,14,0,0" Height="30" FontFamily="Segoe UI Semibold" FontSize="14" />
                     <Button Style="{StaticResource RoundedButton}"  Name="btnNewSched" Content="NEW SCHEDULE" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,16,15.4,499" Width="139" RenderTransformOrigin="0.502,0.503" IsEnabled="False" Click="btnNewSched_Click" Grid.Column="1" />
                     <Label Content="Double click every row to view other details." Margin="9,514,158.4,2.2" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" FontFamily="Segoe UI" FontSize="12"  />
-                    <ListView Opacity="0.5" x:Name="listViewSched" HorizontalAlignment="Left" Height="455" Margin="9,63,0,0" VerticalAlignment="Top" Width="798" Grid.ColumnSpan="2" SelectionChanged="listViewSched_SelectionChanged" MouseDoubleClick="listViewSched_MouseDoubleClick" FontSize="18" FontFamily="Segoe UI">
+                    <ListView Opacity="0.5" x:Name="listViewSched" HorizontalAlignment="Left" Height="455" Margin="9,63,0,0" VerticalAlignment="Top" Width="854" Grid.ColumnSpan="2" SelectionChanged="listViewSched_SelectionChanged" MouseDoubleClick="listViewSched_MouseDoubleClick" FontSize="18" FontFamily="Segoe UI">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="0" />
@@ -197,7 +200,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="C:\Users\edpa9\documents\visual studio 2015\Projects\SVRML\SVRML\icons\info-36.png" Width="16" Height="16"/>
+                        <Image Source="pack://application:,,,/SVRML;component/icons/info-36.png" Width="16" Height="16"/>
                         <TextBlock Text="Details" Margin="5,0,0,0"/>
                     </StackPanel>
                 </TabItem.Header>
@@ -296,6 +299,9 @@
                                 <ComboBoxItem Content="Commercial Vehicle" />
                             </ComboBox.Items>
                         </ComboBox>
+
+                        <TextBlock Text="Car Model:" FontWeight="Bold" Margin="10,0" />
+                        <TextBox x:Name="txtModel" Margin="10,3,10,10" FontSize="20" />
                     </StackPanel>
 
                     <!-- Right Section -->
@@ -340,8 +346,8 @@
         </TabControl>
 
         <Label x:Name="label2" Content="" HorizontalAlignment="Left" Margin="641,12,0,0" VerticalAlignment="Top" Opacity="0"/>
-        <Label x:Name="label" Content="Vehicle" HorizontalAlignment="Center" Margin="260,21,578,0" VerticalAlignment="Top" Width="251" FontWeight="Bold" FontSize="25" Height="49"/>
-        <Border CornerRadius="0,0,0,0" BorderBrush="Black" BorderThickness="1" Height="605" VerticalAlignment="Top" Margin="2,20,837,0" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}"/>
+        <Label x:Name="label" Content="Vehicle" HorizontalAlignment="Center" Margin="269,13,370.8,0" VerticalAlignment="Top" Width="502" FontWeight="Bold" FontSize="25" Height="49"/>
+        <Border CornerRadius="0,0,0,0" BorderBrush="Black" BorderThickness="1" Height="605" VerticalAlignment="Top" Margin="2,20,892.8,0" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}"/>
         <ScrollViewer HorizontalAlignment="Left" Height="545" Margin="8,69,0,0" VerticalAlignment="Top" Width="234" FontSize="14">
             <Grid Name="dynamicGrid" Margin="10">
                 <!-- Initial row (optional) -->

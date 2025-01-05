@@ -10,8 +10,8 @@
       <Column Name="NextSched_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Remarks" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="SchedMaintenance_NotificationTbl" Member="NotificationTbls" ThisKey="SchedMain_ID" OtherKey="SchedID" Type="NotificationTbl" />
-      <Association Name="Vehicle_SchedMaintenance" Member="Vehicle" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="Vehicle" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Administrator_SchedMaintenance" Member="Administrator" ThisKey="Admin_ID" OtherKey="AdminId" Type="Administrator" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Vehicle_SchedMaintenance" Member="Vehicle" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="Vehicle" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.RepairMaintenanceLog" Member="RepairMaintenanceLogs">
@@ -23,37 +23,8 @@
       <Column Name="Milage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Remarks" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Association Name="RepairMaintenanceLog_RepairType" Member="RepairTypes" ThisKey="RepairLog_ID" OtherKey="RepairLogID" Type="RepairType" />
-      <Association Name="Vehicle_RepairMaintenanceLog" Member="Vehicle" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="Vehicle" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Administrator_RepairMaintenanceLog" Member="Administrator" ThisKey="Admin_ID" OtherKey="AdminId" Type="Administrator" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.RepairType" Member="RepairTypes">
-    <Type Name="RepairType">
-      <Column Name="RepairType_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="RepairLogID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Change_Oil" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Replace_Tire" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Replace_Breakpads" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Replace_Aircleaner" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Replace_Drivebelt" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Cost" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Association Name="RepairMaintenanceLog_RepairType" Member="RepairMaintenanceLog" ThisKey="RepairLogID" OtherKey="RepairLog_ID" Type="RepairMaintenanceLog" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Vehicle" Member="Vehicles">
-    <Type Name="Vehicle">
-      <Column Name="Vehicle_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="AdminId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="BrandModel" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="PlateNum" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Type" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="SerialNum" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="AcquisitionDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="AcquisitionCost" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="LastLTORegistration" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Association Name="Vehicle_SchedMaintenance" Member="SchedMaintenances" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="SchedMaintenance" />
-      <Association Name="Vehicle_RepairMaintenanceLog" Member="RepairMaintenanceLogs" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="RepairMaintenanceLog" />
-      <Association Name="Administrator_Vehicle" Member="Administrator" ThisKey="AdminId" OtherKey="AdminId" Type="Administrator" IsForeignKey="true" />
+      <Association Name="Vehicle_RepairMaintenanceLog" Member="Vehicle" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="Vehicle" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.NotificationTbl" Member="NotificationTbls">
@@ -74,6 +45,37 @@
       <Association Name="Administrator_SchedMaintenance" Member="SchedMaintenances" ThisKey="AdminId" OtherKey="Admin_ID" Type="SchedMaintenance" />
       <Association Name="Administrator_RepairMaintenanceLog" Member="RepairMaintenanceLogs" ThisKey="AdminId" OtherKey="Admin_ID" Type="RepairMaintenanceLog" />
       <Association Name="Administrator_Vehicle" Member="Vehicles" ThisKey="AdminId" OtherKey="AdminId" Type="Vehicle" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Vehicle" Member="Vehicles">
+    <Type Name="Vehicle">
+      <Column Name="Vehicle_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdminId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Brand" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Model" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PlateNum" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNum" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AcquisitionDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="AcquisitionCost" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="LastLTORegistration" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Vehicle_SchedMaintenance" Member="SchedMaintenances" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="SchedMaintenance" />
+      <Association Name="Vehicle_RepairMaintenanceLog" Member="RepairMaintenanceLogs" ThisKey="Vehicle_ID" OtherKey="Vehicle_ID" Type="RepairMaintenanceLog" />
+      <Association Name="Administrator_Vehicle" Member="Administrator" ThisKey="AdminId" OtherKey="AdminId" Type="Administrator" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RepairType" Member="RepairTypes">
+    <Type Name="RepairType">
+      <Column Name="RepairType_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RepairLogID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Change_Oil" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Replace_Tire" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Replace_Breakpads" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Replace_AirFilter" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Replace_Drivebelt" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Cost" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="OtherTypes" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="RepairMaintenanceLog_RepairType" Member="RepairMaintenanceLog" ThisKey="RepairLogID" OtherKey="RepairLog_ID" Type="RepairMaintenanceLog" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>

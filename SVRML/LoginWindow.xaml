@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SVRML"
         mc:Ignorable="d"
-        Title="Login Window" Height="510.273" Width="885.396" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" >
+        Title="Login Window" Height="510.273" Width="885.396" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" AllowDrop="True" >
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/SVRML;component/images/pickupblackBlur.jpg" Stretch="UniformToFill" Opacity="80"/>
     </Window.Background>

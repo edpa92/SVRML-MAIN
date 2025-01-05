@@ -78,7 +78,8 @@ namespace SVRML.Classes
                 }
                 veh.AcquisitionCost = vehicle.AcquisitionCost;
                 veh.AcquisitionDate = vehicle.AcquisitionDate;
-                veh.BrandModel = vehicle.BrandModel;
+                veh.Brand = vehicle.Brand;
+                veh.Model = vehicle.Model;
                 veh.PlateNum = vehicle.PlateNum;
                 veh.SerialNum = vehicle.SerialNum;
                 veh.Type = vehicle.Type;

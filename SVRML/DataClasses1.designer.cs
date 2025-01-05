@@ -36,18 +36,18 @@ namespace SVRML
     partial void InsertRepairMaintenanceLog(RepairMaintenanceLog instance);
     partial void UpdateRepairMaintenanceLog(RepairMaintenanceLog instance);
     partial void DeleteRepairMaintenanceLog(RepairMaintenanceLog instance);
-    partial void InsertRepairType(RepairType instance);
-    partial void UpdateRepairType(RepairType instance);
-    partial void DeleteRepairType(RepairType instance);
-    partial void InsertVehicle(Vehicle instance);
-    partial void UpdateVehicle(Vehicle instance);
-    partial void DeleteVehicle(Vehicle instance);
     partial void InsertNotificationTbl(NotificationTbl instance);
     partial void UpdateNotificationTbl(NotificationTbl instance);
     partial void DeleteNotificationTbl(NotificationTbl instance);
     partial void InsertAdministrator(Administrator instance);
     partial void UpdateAdministrator(Administrator instance);
     partial void DeleteAdministrator(Administrator instance);
+    partial void InsertVehicle(Vehicle instance);
+    partial void UpdateVehicle(Vehicle instance);
+    partial void DeleteVehicle(Vehicle instance);
+    partial void InsertRepairType(RepairType instance);
+    partial void UpdateRepairType(RepairType instance);
+    partial void DeleteRepairType(RepairType instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -96,22 +96,6 @@ namespace SVRML
 			}
 		}
 		
-		public System.Data.Linq.Table<RepairType> RepairTypes
-		{
-			get
-			{
-				return this.GetTable<RepairType>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Vehicle> Vehicles
-		{
-			get
-			{
-				return this.GetTable<Vehicle>();
-			}
-		}
-		
 		public System.Data.Linq.Table<NotificationTbl> NotificationTbls
 		{
 			get
@@ -125,6 +109,22 @@ namespace SVRML
 			get
 			{
 				return this.GetTable<Administrator>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Vehicle> Vehicles
+		{
+			get
+			{
+				return this.GetTable<Vehicle>();
+			}
+		}
+		
+		public System.Data.Linq.Table<RepairType> RepairTypes
+		{
+			get
+			{
+				return this.GetTable<RepairType>();
 			}
 		}
 	}
@@ -151,9 +151,9 @@ namespace SVRML
 		
 		private EntitySet<NotificationTbl> _NotificationTbls;
 		
-		private EntityRef<Vehicle> _Vehicle;
-		
 		private EntityRef<Administrator> _Administrator;
+		
+		private EntityRef<Vehicle> _Vehicle;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -178,8 +178,8 @@ namespace SVRML
 		public SchedMaintenance()
 		{
 			this._NotificationTbls = new EntitySet<NotificationTbl>(new Action<NotificationTbl>(this.attach_NotificationTbls), new Action<NotificationTbl>(this.detach_NotificationTbls));
-			this._Vehicle = default(EntityRef<Vehicle>);
 			this._Administrator = default(EntityRef<Administrator>);
+			this._Vehicle = default(EntityRef<Vehicle>);
 			OnCreated();
 		}
 		
@@ -344,40 +344,6 @@ namespace SVRML
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_SchedMaintenance", Storage="_Vehicle", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Vehicle Vehicle
-		{
-			get
-			{
-				return this._Vehicle.Entity;
-			}
-			set
-			{
-				Vehicle previousValue = this._Vehicle.Entity;
-				if (((previousValue != value) 
-							|| (this._Vehicle.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Vehicle.Entity = null;
-						previousValue.SchedMaintenances.Remove(this);
-					}
-					this._Vehicle.Entity = value;
-					if ((value != null))
-					{
-						value.SchedMaintenances.Add(this);
-						this._Vehicle_ID = value.Vehicle_ID;
-					}
-					else
-					{
-						this._Vehicle_ID = default(int);
-					}
-					this.SendPropertyChanged("Vehicle");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_SchedMaintenance", Storage="_Administrator", ThisKey="Admin_ID", OtherKey="AdminId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Administrator Administrator
 		{
@@ -408,6 +374,40 @@ namespace SVRML
 						this._Admin_ID = default(int);
 					}
 					this.SendPropertyChanged("Administrator");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_SchedMaintenance", Storage="_Vehicle", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Vehicle Vehicle
+		{
+			get
+			{
+				return this._Vehicle.Entity;
+			}
+			set
+			{
+				Vehicle previousValue = this._Vehicle.Entity;
+				if (((previousValue != value) 
+							|| (this._Vehicle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Vehicle.Entity = null;
+						previousValue.SchedMaintenances.Remove(this);
+					}
+					this._Vehicle.Entity = value;
+					if ((value != null))
+					{
+						value.SchedMaintenances.Add(this);
+						this._Vehicle_ID = value.Vehicle_ID;
+					}
+					else
+					{
+						this._Vehicle_ID = default(int);
+					}
+					this.SendPropertyChanged("Vehicle");
 				}
 			}
 		}
@@ -465,9 +465,9 @@ namespace SVRML
 		
 		private EntitySet<RepairType> _RepairTypes;
 		
-		private EntityRef<Vehicle> _Vehicle;
-		
 		private EntityRef<Administrator> _Administrator;
+		
+		private EntityRef<Vehicle> _Vehicle;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -490,8 +490,8 @@ namespace SVRML
 		public RepairMaintenanceLog()
 		{
 			this._RepairTypes = new EntitySet<RepairType>(new Action<RepairType>(this.attach_RepairTypes), new Action<RepairType>(this.detach_RepairTypes));
-			this._Vehicle = default(EntityRef<Vehicle>);
 			this._Administrator = default(EntityRef<Administrator>);
+			this._Vehicle = default(EntityRef<Vehicle>);
 			OnCreated();
 		}
 		
@@ -636,40 +636,6 @@ namespace SVRML
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_RepairMaintenanceLog", Storage="_Vehicle", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Vehicle Vehicle
-		{
-			get
-			{
-				return this._Vehicle.Entity;
-			}
-			set
-			{
-				Vehicle previousValue = this._Vehicle.Entity;
-				if (((previousValue != value) 
-							|| (this._Vehicle.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Vehicle.Entity = null;
-						previousValue.RepairMaintenanceLogs.Remove(this);
-					}
-					this._Vehicle.Entity = value;
-					if ((value != null))
-					{
-						value.RepairMaintenanceLogs.Add(this);
-						this._Vehicle_ID = value.Vehicle_ID;
-					}
-					else
-					{
-						this._Vehicle_ID = default(int);
-					}
-					this.SendPropertyChanged("Vehicle");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_RepairMaintenanceLog", Storage="_Administrator", ThisKey="Admin_ID", OtherKey="AdminId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Administrator Administrator
 		{
@@ -704,6 +670,40 @@ namespace SVRML
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_RepairMaintenanceLog", Storage="_Vehicle", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Vehicle Vehicle
+		{
+			get
+			{
+				return this._Vehicle.Entity;
+			}
+			set
+			{
+				Vehicle previousValue = this._Vehicle.Entity;
+				if (((previousValue != value) 
+							|| (this._Vehicle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Vehicle.Entity = null;
+						previousValue.RepairMaintenanceLogs.Remove(this);
+					}
+					this._Vehicle.Entity = value;
+					if ((value != null))
+					{
+						value.RepairMaintenanceLogs.Add(this);
+						this._Vehicle_ID = value.Vehicle_ID;
+					}
+					else
+					{
+						this._Vehicle_ID = default(int);
+					}
+					this.SendPropertyChanged("Vehicle");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -734,628 +734,6 @@ namespace SVRML
 		{
 			this.SendPropertyChanging();
 			entity.RepairMaintenanceLog = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RepairType")]
-	public partial class RepairType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RepairType_ID;
-		
-		private int _RepairLogID;
-		
-		private System.Nullable<bool> _Change_Oil;
-		
-		private System.Nullable<bool> _Replace_Tire;
-		
-		private System.Nullable<bool> _Replace_Breakpads;
-		
-		private System.Nullable<bool> _Replace_Aircleaner;
-		
-		private System.Nullable<bool> _Replace_Drivebelt;
-		
-		private decimal _Cost;
-		
-		private EntityRef<RepairMaintenanceLog> _RepairMaintenanceLog;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRepairType_IDChanging(int value);
-    partial void OnRepairType_IDChanged();
-    partial void OnRepairLogIDChanging(int value);
-    partial void OnRepairLogIDChanged();
-    partial void OnChange_OilChanging(System.Nullable<bool> value);
-    partial void OnChange_OilChanged();
-    partial void OnReplace_TireChanging(System.Nullable<bool> value);
-    partial void OnReplace_TireChanged();
-    partial void OnReplace_BreakpadsChanging(System.Nullable<bool> value);
-    partial void OnReplace_BreakpadsChanged();
-    partial void OnReplace_AircleanerChanging(System.Nullable<bool> value);
-    partial void OnReplace_AircleanerChanged();
-    partial void OnReplace_DrivebeltChanging(System.Nullable<bool> value);
-    partial void OnReplace_DrivebeltChanged();
-    partial void OnCostChanging(decimal value);
-    partial void OnCostChanged();
-    #endregion
-		
-		public RepairType()
-		{
-			this._RepairMaintenanceLog = default(EntityRef<RepairMaintenanceLog>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepairType_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int RepairType_ID
-		{
-			get
-			{
-				return this._RepairType_ID;
-			}
-			set
-			{
-				if ((this._RepairType_ID != value))
-				{
-					this.OnRepairType_IDChanging(value);
-					this.SendPropertyChanging();
-					this._RepairType_ID = value;
-					this.SendPropertyChanged("RepairType_ID");
-					this.OnRepairType_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepairLogID", DbType="Int NOT NULL")]
-		public int RepairLogID
-		{
-			get
-			{
-				return this._RepairLogID;
-			}
-			set
-			{
-				if ((this._RepairLogID != value))
-				{
-					if (this._RepairMaintenanceLog.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRepairLogIDChanging(value);
-					this.SendPropertyChanging();
-					this._RepairLogID = value;
-					this.SendPropertyChanged("RepairLogID");
-					this.OnRepairLogIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Change_Oil", DbType="Bit")]
-		public System.Nullable<bool> Change_Oil
-		{
-			get
-			{
-				return this._Change_Oil;
-			}
-			set
-			{
-				if ((this._Change_Oil != value))
-				{
-					this.OnChange_OilChanging(value);
-					this.SendPropertyChanging();
-					this._Change_Oil = value;
-					this.SendPropertyChanged("Change_Oil");
-					this.OnChange_OilChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Replace_Tire", DbType="Bit")]
-		public System.Nullable<bool> Replace_Tire
-		{
-			get
-			{
-				return this._Replace_Tire;
-			}
-			set
-			{
-				if ((this._Replace_Tire != value))
-				{
-					this.OnReplace_TireChanging(value);
-					this.SendPropertyChanging();
-					this._Replace_Tire = value;
-					this.SendPropertyChanged("Replace_Tire");
-					this.OnReplace_TireChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Replace_Breakpads", DbType="Bit")]
-		public System.Nullable<bool> Replace_Breakpads
-		{
-			get
-			{
-				return this._Replace_Breakpads;
-			}
-			set
-			{
-				if ((this._Replace_Breakpads != value))
-				{
-					this.OnReplace_BreakpadsChanging(value);
-					this.SendPropertyChanging();
-					this._Replace_Breakpads = value;
-					this.SendPropertyChanged("Replace_Breakpads");
-					this.OnReplace_BreakpadsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Replace_Aircleaner", DbType="Bit")]
-		public System.Nullable<bool> Replace_Aircleaner
-		{
-			get
-			{
-				return this._Replace_Aircleaner;
-			}
-			set
-			{
-				if ((this._Replace_Aircleaner != value))
-				{
-					this.OnReplace_AircleanerChanging(value);
-					this.SendPropertyChanging();
-					this._Replace_Aircleaner = value;
-					this.SendPropertyChanged("Replace_Aircleaner");
-					this.OnReplace_AircleanerChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Replace_Drivebelt", DbType="Bit")]
-		public System.Nullable<bool> Replace_Drivebelt
-		{
-			get
-			{
-				return this._Replace_Drivebelt;
-			}
-			set
-			{
-				if ((this._Replace_Drivebelt != value))
-				{
-					this.OnReplace_DrivebeltChanging(value);
-					this.SendPropertyChanging();
-					this._Replace_Drivebelt = value;
-					this.SendPropertyChanged("Replace_Drivebelt");
-					this.OnReplace_DrivebeltChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cost", DbType="Decimal(18,2) NOT NULL")]
-		public decimal Cost
-		{
-			get
-			{
-				return this._Cost;
-			}
-			set
-			{
-				if ((this._Cost != value))
-				{
-					this.OnCostChanging(value);
-					this.SendPropertyChanging();
-					this._Cost = value;
-					this.SendPropertyChanged("Cost");
-					this.OnCostChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RepairMaintenanceLog_RepairType", Storage="_RepairMaintenanceLog", ThisKey="RepairLogID", OtherKey="RepairLog_ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public RepairMaintenanceLog RepairMaintenanceLog
-		{
-			get
-			{
-				return this._RepairMaintenanceLog.Entity;
-			}
-			set
-			{
-				RepairMaintenanceLog previousValue = this._RepairMaintenanceLog.Entity;
-				if (((previousValue != value) 
-							|| (this._RepairMaintenanceLog.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RepairMaintenanceLog.Entity = null;
-						previousValue.RepairTypes.Remove(this);
-					}
-					this._RepairMaintenanceLog.Entity = value;
-					if ((value != null))
-					{
-						value.RepairTypes.Add(this);
-						this._RepairLogID = value.RepairLog_ID;
-					}
-					else
-					{
-						this._RepairLogID = default(int);
-					}
-					this.SendPropertyChanged("RepairMaintenanceLog");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Vehicle")]
-	public partial class Vehicle : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Vehicle_ID;
-		
-		private int _AdminId;
-		
-		private string _BrandModel;
-		
-		private string _PlateNum;
-		
-		private string _Type;
-		
-		private string _SerialNum;
-		
-		private System.Nullable<System.DateTime> _AcquisitionDate;
-		
-		private decimal _AcquisitionCost;
-		
-		private System.Nullable<System.DateTime> _LastLTORegistration;
-		
-		private EntitySet<SchedMaintenance> _SchedMaintenances;
-		
-		private EntitySet<RepairMaintenanceLog> _RepairMaintenanceLogs;
-		
-		private EntityRef<Administrator> _Administrator;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnVehicle_IDChanging(int value);
-    partial void OnVehicle_IDChanged();
-    partial void OnAdminIdChanging(int value);
-    partial void OnAdminIdChanged();
-    partial void OnBrandModelChanging(string value);
-    partial void OnBrandModelChanged();
-    partial void OnPlateNumChanging(string value);
-    partial void OnPlateNumChanged();
-    partial void OnTypeChanging(string value);
-    partial void OnTypeChanged();
-    partial void OnSerialNumChanging(string value);
-    partial void OnSerialNumChanged();
-    partial void OnAcquisitionDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnAcquisitionDateChanged();
-    partial void OnAcquisitionCostChanging(decimal value);
-    partial void OnAcquisitionCostChanged();
-    partial void OnLastLTORegistrationChanging(System.Nullable<System.DateTime> value);
-    partial void OnLastLTORegistrationChanged();
-    #endregion
-		
-		public Vehicle()
-		{
-			this._SchedMaintenances = new EntitySet<SchedMaintenance>(new Action<SchedMaintenance>(this.attach_SchedMaintenances), new Action<SchedMaintenance>(this.detach_SchedMaintenances));
-			this._RepairMaintenanceLogs = new EntitySet<RepairMaintenanceLog>(new Action<RepairMaintenanceLog>(this.attach_RepairMaintenanceLogs), new Action<RepairMaintenanceLog>(this.detach_RepairMaintenanceLogs));
-			this._Administrator = default(EntityRef<Administrator>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vehicle_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Vehicle_ID
-		{
-			get
-			{
-				return this._Vehicle_ID;
-			}
-			set
-			{
-				if ((this._Vehicle_ID != value))
-				{
-					this.OnVehicle_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Vehicle_ID = value;
-					this.SendPropertyChanged("Vehicle_ID");
-					this.OnVehicle_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdminId", DbType="Int NOT NULL")]
-		public int AdminId
-		{
-			get
-			{
-				return this._AdminId;
-			}
-			set
-			{
-				if ((this._AdminId != value))
-				{
-					if (this._Administrator.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAdminIdChanging(value);
-					this.SendPropertyChanging();
-					this._AdminId = value;
-					this.SendPropertyChanged("AdminId");
-					this.OnAdminIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BrandModel", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string BrandModel
-		{
-			get
-			{
-				return this._BrandModel;
-			}
-			set
-			{
-				if ((this._BrandModel != value))
-				{
-					this.OnBrandModelChanging(value);
-					this.SendPropertyChanging();
-					this._BrandModel = value;
-					this.SendPropertyChanged("BrandModel");
-					this.OnBrandModelChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlateNum", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string PlateNum
-		{
-			get
-			{
-				return this._PlateNum;
-			}
-			set
-			{
-				if ((this._PlateNum != value))
-				{
-					this.OnPlateNumChanging(value);
-					this.SendPropertyChanging();
-					this._PlateNum = value;
-					this.SendPropertyChanged("PlateNum");
-					this.OnPlateNumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Type
-		{
-			get
-			{
-				return this._Type;
-			}
-			set
-			{
-				if ((this._Type != value))
-				{
-					this.OnTypeChanging(value);
-					this.SendPropertyChanging();
-					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerialNum", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string SerialNum
-		{
-			get
-			{
-				return this._SerialNum;
-			}
-			set
-			{
-				if ((this._SerialNum != value))
-				{
-					this.OnSerialNumChanging(value);
-					this.SendPropertyChanging();
-					this._SerialNum = value;
-					this.SendPropertyChanged("SerialNum");
-					this.OnSerialNumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AcquisitionDate", DbType="Date")]
-		public System.Nullable<System.DateTime> AcquisitionDate
-		{
-			get
-			{
-				return this._AcquisitionDate;
-			}
-			set
-			{
-				if ((this._AcquisitionDate != value))
-				{
-					this.OnAcquisitionDateChanging(value);
-					this.SendPropertyChanging();
-					this._AcquisitionDate = value;
-					this.SendPropertyChanged("AcquisitionDate");
-					this.OnAcquisitionDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AcquisitionCost", DbType="Decimal(18,2) NOT NULL")]
-		public decimal AcquisitionCost
-		{
-			get
-			{
-				return this._AcquisitionCost;
-			}
-			set
-			{
-				if ((this._AcquisitionCost != value))
-				{
-					this.OnAcquisitionCostChanging(value);
-					this.SendPropertyChanging();
-					this._AcquisitionCost = value;
-					this.SendPropertyChanged("AcquisitionCost");
-					this.OnAcquisitionCostChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastLTORegistration", DbType="Date")]
-		public System.Nullable<System.DateTime> LastLTORegistration
-		{
-			get
-			{
-				return this._LastLTORegistration;
-			}
-			set
-			{
-				if ((this._LastLTORegistration != value))
-				{
-					this.OnLastLTORegistrationChanging(value);
-					this.SendPropertyChanging();
-					this._LastLTORegistration = value;
-					this.SendPropertyChanged("LastLTORegistration");
-					this.OnLastLTORegistrationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_SchedMaintenance", Storage="_SchedMaintenances", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID")]
-		public EntitySet<SchedMaintenance> SchedMaintenances
-		{
-			get
-			{
-				return this._SchedMaintenances;
-			}
-			set
-			{
-				this._SchedMaintenances.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_RepairMaintenanceLog", Storage="_RepairMaintenanceLogs", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID")]
-		public EntitySet<RepairMaintenanceLog> RepairMaintenanceLogs
-		{
-			get
-			{
-				return this._RepairMaintenanceLogs;
-			}
-			set
-			{
-				this._RepairMaintenanceLogs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_Vehicle", Storage="_Administrator", ThisKey="AdminId", OtherKey="AdminId", IsForeignKey=true)]
-		public Administrator Administrator
-		{
-			get
-			{
-				return this._Administrator.Entity;
-			}
-			set
-			{
-				Administrator previousValue = this._Administrator.Entity;
-				if (((previousValue != value) 
-							|| (this._Administrator.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Administrator.Entity = null;
-						previousValue.Vehicles.Remove(this);
-					}
-					this._Administrator.Entity = value;
-					if ((value != null))
-					{
-						value.Vehicles.Add(this);
-						this._AdminId = value.AdminId;
-					}
-					else
-					{
-						this._AdminId = default(int);
-					}
-					this.SendPropertyChanged("Administrator");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_SchedMaintenances(SchedMaintenance entity)
-		{
-			this.SendPropertyChanging();
-			entity.Vehicle = this;
-		}
-		
-		private void detach_SchedMaintenances(SchedMaintenance entity)
-		{
-			this.SendPropertyChanging();
-			entity.Vehicle = null;
-		}
-		
-		private void attach_RepairMaintenanceLogs(RepairMaintenanceLog entity)
-		{
-			this.SendPropertyChanging();
-			entity.Vehicle = this;
-		}
-		
-		private void detach_RepairMaintenanceLogs(RepairMaintenanceLog entity)
-		{
-			this.SendPropertyChanging();
-			entity.Vehicle = null;
 		}
 	}
 	
@@ -1749,6 +1127,676 @@ namespace SVRML
 		{
 			this.SendPropertyChanging();
 			entity.Administrator = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Vehicle")]
+	public partial class Vehicle : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Vehicle_ID;
+		
+		private int _AdminId;
+		
+		private string _Brand;
+		
+		private string _Model;
+		
+		private string _PlateNum;
+		
+		private string _Type;
+		
+		private string _SerialNum;
+		
+		private System.Nullable<System.DateTime> _AcquisitionDate;
+		
+		private decimal _AcquisitionCost;
+		
+		private System.Nullable<System.DateTime> _LastLTORegistration;
+		
+		private EntitySet<SchedMaintenance> _SchedMaintenances;
+		
+		private EntitySet<RepairMaintenanceLog> _RepairMaintenanceLogs;
+		
+		private EntityRef<Administrator> _Administrator;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnVehicle_IDChanging(int value);
+    partial void OnVehicle_IDChanged();
+    partial void OnAdminIdChanging(int value);
+    partial void OnAdminIdChanged();
+    partial void OnBrandChanging(string value);
+    partial void OnBrandChanged();
+    partial void OnModelChanging(string value);
+    partial void OnModelChanged();
+    partial void OnPlateNumChanging(string value);
+    partial void OnPlateNumChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
+    partial void OnSerialNumChanging(string value);
+    partial void OnSerialNumChanged();
+    partial void OnAcquisitionDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnAcquisitionDateChanged();
+    partial void OnAcquisitionCostChanging(decimal value);
+    partial void OnAcquisitionCostChanged();
+    partial void OnLastLTORegistrationChanging(System.Nullable<System.DateTime> value);
+    partial void OnLastLTORegistrationChanged();
+    #endregion
+		
+		public Vehicle()
+		{
+			this._SchedMaintenances = new EntitySet<SchedMaintenance>(new Action<SchedMaintenance>(this.attach_SchedMaintenances), new Action<SchedMaintenance>(this.detach_SchedMaintenances));
+			this._RepairMaintenanceLogs = new EntitySet<RepairMaintenanceLog>(new Action<RepairMaintenanceLog>(this.attach_RepairMaintenanceLogs), new Action<RepairMaintenanceLog>(this.detach_RepairMaintenanceLogs));
+			this._Administrator = default(EntityRef<Administrator>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vehicle_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Vehicle_ID
+		{
+			get
+			{
+				return this._Vehicle_ID;
+			}
+			set
+			{
+				if ((this._Vehicle_ID != value))
+				{
+					this.OnVehicle_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Vehicle_ID = value;
+					this.SendPropertyChanged("Vehicle_ID");
+					this.OnVehicle_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdminId", DbType="Int NOT NULL")]
+		public int AdminId
+		{
+			get
+			{
+				return this._AdminId;
+			}
+			set
+			{
+				if ((this._AdminId != value))
+				{
+					if (this._Administrator.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAdminIdChanging(value);
+					this.SendPropertyChanging();
+					this._AdminId = value;
+					this.SendPropertyChanged("AdminId");
+					this.OnAdminIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Brand", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Brand
+		{
+			get
+			{
+				return this._Brand;
+			}
+			set
+			{
+				if ((this._Brand != value))
+				{
+					this.OnBrandChanging(value);
+					this.SendPropertyChanging();
+					this._Brand = value;
+					this.SendPropertyChanged("Brand");
+					this.OnBrandChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="VarChar(50)")]
+		public string Model
+		{
+			get
+			{
+				return this._Model;
+			}
+			set
+			{
+				if ((this._Model != value))
+				{
+					this.OnModelChanging(value);
+					this.SendPropertyChanging();
+					this._Model = value;
+					this.SendPropertyChanged("Model");
+					this.OnModelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlateNum", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string PlateNum
+		{
+			get
+			{
+				return this._PlateNum;
+			}
+			set
+			{
+				if ((this._PlateNum != value))
+				{
+					this.OnPlateNumChanging(value);
+					this.SendPropertyChanging();
+					this._PlateNum = value;
+					this.SendPropertyChanged("PlateNum");
+					this.OnPlateNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerialNum", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string SerialNum
+		{
+			get
+			{
+				return this._SerialNum;
+			}
+			set
+			{
+				if ((this._SerialNum != value))
+				{
+					this.OnSerialNumChanging(value);
+					this.SendPropertyChanging();
+					this._SerialNum = value;
+					this.SendPropertyChanged("SerialNum");
+					this.OnSerialNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AcquisitionDate", DbType="Date")]
+		public System.Nullable<System.DateTime> AcquisitionDate
+		{
+			get
+			{
+				return this._AcquisitionDate;
+			}
+			set
+			{
+				if ((this._AcquisitionDate != value))
+				{
+					this.OnAcquisitionDateChanging(value);
+					this.SendPropertyChanging();
+					this._AcquisitionDate = value;
+					this.SendPropertyChanged("AcquisitionDate");
+					this.OnAcquisitionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AcquisitionCost", DbType="Decimal(18,2) NOT NULL")]
+		public decimal AcquisitionCost
+		{
+			get
+			{
+				return this._AcquisitionCost;
+			}
+			set
+			{
+				if ((this._AcquisitionCost != value))
+				{
+					this.OnAcquisitionCostChanging(value);
+					this.SendPropertyChanging();
+					this._AcquisitionCost = value;
+					this.SendPropertyChanged("AcquisitionCost");
+					this.OnAcquisitionCostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastLTORegistration", DbType="Date")]
+		public System.Nullable<System.DateTime> LastLTORegistration
+		{
+			get
+			{
+				return this._LastLTORegistration;
+			}
+			set
+			{
+				if ((this._LastLTORegistration != value))
+				{
+					this.OnLastLTORegistrationChanging(value);
+					this.SendPropertyChanging();
+					this._LastLTORegistration = value;
+					this.SendPropertyChanged("LastLTORegistration");
+					this.OnLastLTORegistrationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_SchedMaintenance", Storage="_SchedMaintenances", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID")]
+		public EntitySet<SchedMaintenance> SchedMaintenances
+		{
+			get
+			{
+				return this._SchedMaintenances;
+			}
+			set
+			{
+				this._SchedMaintenances.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehicle_RepairMaintenanceLog", Storage="_RepairMaintenanceLogs", ThisKey="Vehicle_ID", OtherKey="Vehicle_ID")]
+		public EntitySet<RepairMaintenanceLog> RepairMaintenanceLogs
+		{
+			get
+			{
+				return this._RepairMaintenanceLogs;
+			}
+			set
+			{
+				this._RepairMaintenanceLogs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Administrator_Vehicle", Storage="_Administrator", ThisKey="AdminId", OtherKey="AdminId", IsForeignKey=true)]
+		public Administrator Administrator
+		{
+			get
+			{
+				return this._Administrator.Entity;
+			}
+			set
+			{
+				Administrator previousValue = this._Administrator.Entity;
+				if (((previousValue != value) 
+							|| (this._Administrator.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Administrator.Entity = null;
+						previousValue.Vehicles.Remove(this);
+					}
+					this._Administrator.Entity = value;
+					if ((value != null))
+					{
+						value.Vehicles.Add(this);
+						this._AdminId = value.AdminId;
+					}
+					else
+					{
+						this._AdminId = default(int);
+					}
+					this.SendPropertyChanged("Administrator");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SchedMaintenances(SchedMaintenance entity)
+		{
+			this.SendPropertyChanging();
+			entity.Vehicle = this;
+		}
+		
+		private void detach_SchedMaintenances(SchedMaintenance entity)
+		{
+			this.SendPropertyChanging();
+			entity.Vehicle = null;
+		}
+		
+		private void attach_RepairMaintenanceLogs(RepairMaintenanceLog entity)
+		{
+			this.SendPropertyChanging();
+			entity.Vehicle = this;
+		}
+		
+		private void detach_RepairMaintenanceLogs(RepairMaintenanceLog entity)
+		{
+			this.SendPropertyChanging();
+			entity.Vehicle = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RepairType")]
+	public partial class RepairType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RepairType_ID;
+		
+		private int _RepairLogID;
+		
+		private System.Nullable<bool> _Change_Oil;
+		
+		private System.Nullable<bool> _Replace_Tire;
+		
+		private System.Nullable<bool> _Replace_Breakpads;
+		
+		private System.Nullable<bool> _Replace_AirFilter;
+		
+		private System.Nullable<bool> _Replace_Drivebelt;
+		
+		private decimal _Cost;
+		
+		private System.Nullable<bool> _OtherTypes;
+		
+		private EntityRef<RepairMaintenanceLog> _RepairMaintenanceLog;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRepairType_IDChanging(int value);
+    partial void OnRepairType_IDChanged();
+    partial void OnRepairLogIDChanging(int value);
+    partial void OnRepairLogIDChanged();
+    partial void OnChange_OilChanging(System.Nullable<bool> value);
+    partial void OnChange_OilChanged();
+    partial void OnReplace_TireChanging(System.Nullable<bool> value);
+    partial void OnReplace_TireChanged();
+    partial void OnReplace_BreakpadsChanging(System.Nullable<bool> value);
+    partial void OnReplace_BreakpadsChanged();
+    partial void OnReplace_AirFilterChanging(System.Nullable<bool> value);
+    partial void OnReplace_AirFilterChanged();
+    partial void OnReplace_DrivebeltChanging(System.Nullable<bool> value);
+    partial void OnReplace_DrivebeltChanged();
+    partial void OnCostChanging(decimal value);
+    partial void OnCostChanged();
+    partial void OnOtherTypesChanging(System.Nullable<bool> value);
+    partial void OnOtherTypesChanged();
+    #endregion
+		
+		public RepairType()
+		{
+			this._RepairMaintenanceLog = default(EntityRef<RepairMaintenanceLog>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepairType_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RepairType_ID
+		{
+			get
+			{
+				return this._RepairType_ID;
+			}
+			set
+			{
+				if ((this._RepairType_ID != value))
+				{
+					this.OnRepairType_IDChanging(value);
+					this.SendPropertyChanging();
+					this._RepairType_ID = value;
+					this.SendPropertyChanged("RepairType_ID");
+					this.OnRepairType_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepairLogID", DbType="Int NOT NULL")]
+		public int RepairLogID
+		{
+			get
+			{
+				return this._RepairLogID;
+			}
+			set
+			{
+				if ((this._RepairLogID != value))
+				{
+					if (this._RepairMaintenanceLog.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRepairLogIDChanging(value);
+					this.SendPropertyChanging();
+					this._RepairLogID = value;
+					this.SendPropertyChanged("RepairLogID");
+					this.OnRepairLogIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Change_Oil", DbType="Bit")]
+		public System.Nullable<bool> Change_Oil
+		{
+			get
+			{
+				return this._Change_Oil;
+			}
+			set
+			{
+				if ((this._Change_Oil != value))
+				{
+					this.OnChange_OilChanging(value);
+					this.SendPropertyChanging();
+					this._Change_Oil = value;
+					this.SendPropertyChanged("Change_Oil");
+					this.OnChange_OilChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Replace_Tire", DbType="Bit")]
+		public System.Nullable<bool> Replace_Tire
+		{
+			get
+			{
+				return this._Replace_Tire;
+			}
+			set
+			{
+				if ((this._Replace_Tire != value))
+				{
+					this.OnReplace_TireChanging(value);
+					this.SendPropertyChanging();
+					this._Replace_Tire = value;
+					this.SendPropertyChanged("Replace_Tire");
+					this.OnReplace_TireChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Replace_Breakpads", DbType="Bit")]
+		public System.Nullable<bool> Replace_Breakpads
+		{
+			get
+			{
+				return this._Replace_Breakpads;
+			}
+			set
+			{
+				if ((this._Replace_Breakpads != value))
+				{
+					this.OnReplace_BreakpadsChanging(value);
+					this.SendPropertyChanging();
+					this._Replace_Breakpads = value;
+					this.SendPropertyChanged("Replace_Breakpads");
+					this.OnReplace_BreakpadsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Replace_AirFilter", DbType="Bit")]
+		public System.Nullable<bool> Replace_AirFilter
+		{
+			get
+			{
+				return this._Replace_AirFilter;
+			}
+			set
+			{
+				if ((this._Replace_AirFilter != value))
+				{
+					this.OnReplace_AirFilterChanging(value);
+					this.SendPropertyChanging();
+					this._Replace_AirFilter = value;
+					this.SendPropertyChanged("Replace_AirFilter");
+					this.OnReplace_AirFilterChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Replace_Drivebelt", DbType="Bit")]
+		public System.Nullable<bool> Replace_Drivebelt
+		{
+			get
+			{
+				return this._Replace_Drivebelt;
+			}
+			set
+			{
+				if ((this._Replace_Drivebelt != value))
+				{
+					this.OnReplace_DrivebeltChanging(value);
+					this.SendPropertyChanging();
+					this._Replace_Drivebelt = value;
+					this.SendPropertyChanged("Replace_Drivebelt");
+					this.OnReplace_DrivebeltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cost", DbType="Decimal(18,2) NOT NULL")]
+		public decimal Cost
+		{
+			get
+			{
+				return this._Cost;
+			}
+			set
+			{
+				if ((this._Cost != value))
+				{
+					this.OnCostChanging(value);
+					this.SendPropertyChanging();
+					this._Cost = value;
+					this.SendPropertyChanged("Cost");
+					this.OnCostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OtherTypes", DbType="Bit")]
+		public System.Nullable<bool> OtherTypes
+		{
+			get
+			{
+				return this._OtherTypes;
+			}
+			set
+			{
+				if ((this._OtherTypes != value))
+				{
+					this.OnOtherTypesChanging(value);
+					this.SendPropertyChanging();
+					this._OtherTypes = value;
+					this.SendPropertyChanged("OtherTypes");
+					this.OnOtherTypesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RepairMaintenanceLog_RepairType", Storage="_RepairMaintenanceLog", ThisKey="RepairLogID", OtherKey="RepairLog_ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public RepairMaintenanceLog RepairMaintenanceLog
+		{
+			get
+			{
+				return this._RepairMaintenanceLog.Entity;
+			}
+			set
+			{
+				RepairMaintenanceLog previousValue = this._RepairMaintenanceLog.Entity;
+				if (((previousValue != value) 
+							|| (this._RepairMaintenanceLog.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RepairMaintenanceLog.Entity = null;
+						previousValue.RepairTypes.Remove(this);
+					}
+					this._RepairMaintenanceLog.Entity = value;
+					if ((value != null))
+					{
+						value.RepairTypes.Add(this);
+						this._RepairLogID = value.RepairLog_ID;
+					}
+					else
+					{
+						this._RepairLogID = default(int);
+					}
+					this.SendPropertyChanged("RepairMaintenanceLog");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

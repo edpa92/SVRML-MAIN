@@ -43,6 +43,12 @@ namespace SVRML
                     return;
 
                 }
+                if (textBoxCarModel.Text.ToString() == "")
+                {
+                    MessageBox.Show("Car model is required.");
+                    return;
+
+                }
                 if (textBox4.Text.ToString() == "")
                 {
                     MessageBox.Show("Cost is required.");
@@ -74,7 +80,8 @@ namespace SVRML
                 veh.AcquisitionCost = (decimal)cost;
                 veh.AcquisitionDate = (DateTime)dateTimePicker1.SelectedDate;
                 veh.AdminId = (int)Application.Current.Resources["AdminID"];
-                veh.BrandModel = ((ComboBoxItem)comboBox1.Items.GetItemAt(comboBox1.SelectedIndex)).Content.ToString();
+                veh.Brand = ((ComboBoxItem)comboBox1.Items.GetItemAt(comboBox1.SelectedIndex)).Content.ToString();
+                veh.Model = textBoxCarModel.Text.ToString();
                 veh.PlateNum = textBox1.Text;
                 veh.SerialNum = textBox2.Text;
                 veh.Type = ((ComboBoxItem)comboBox2.Items.GetItemAt(comboBox2.SelectedIndex)).Content.ToString();

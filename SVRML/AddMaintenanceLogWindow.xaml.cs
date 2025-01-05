@@ -53,7 +53,8 @@ namespace SVRML
                 cbBreak.IsChecked= rtobj.GetRepType(logid).Replace_Breakpads;
                 cbBelt.IsChecked = rtobj.GetRepType(logid).Replace_Drivebelt;
                 cbTire.IsChecked = rtobj.GetRepType(logid).Replace_Tire;
-                cbAir.IsChecked = rtobj.GetRepType(logid).Replace_Aircleaner;
+                cbAir.IsChecked = rtobj.GetRepType(logid).Replace_AirFilter;
+                cbOther.IsChecked= rtobj.GetRepType(logid).OtherTypes;
             }
 
             btnSave.Content = (isEdit?"Save Edit":"Save");
@@ -111,6 +112,10 @@ namespace SVRML
                 {
                     hascheckboxchecked++;
                 }
+                if ((bool)cbOther.IsChecked)
+                {
+                    hascheckboxchecked++;
+                }
 
                 if (hascheckboxchecked==0)
                 {
@@ -140,11 +145,12 @@ namespace SVRML
                         {
                             RepairType rt = new RepairType();
                             rt.RepairLogID = logid;
-                            rt.Replace_Aircleaner = cbAir.IsChecked;
+                            rt.Replace_AirFilter = cbAir.IsChecked;
                             rt.Replace_Breakpads = cbBreak.IsChecked;
                             rt.Replace_Drivebelt = cbBelt.IsChecked;
                             rt.Replace_Tire = cbTire.IsChecked;
                             rt.Change_Oil = cbOil.IsChecked;
+                            rt.OtherTypes = cbOther.IsChecked;
                             rt.Cost = (decimal)cost;
                             rtobj.AddRepairType(rt);
                             MessageBox.Show("Repair Data Saved!", "Add Maintenance Data", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -182,7 +188,8 @@ namespace SVRML
                     rt.Replace_Breakpads = cbBreak.IsChecked;
                     rt.Replace_Drivebelt = cbBelt.IsChecked;
                     rt.Replace_Tire = cbTire.IsChecked;
-                    rt.Replace_Aircleaner = cbAir.IsChecked;
+                    rt.Replace_AirFilter = cbAir.IsChecked;
+                    rt.OtherTypes = cbOther.IsChecked;
                     rt.Cost = (decimal)cost;
                     rtobj.EditReptype(rt);
                     

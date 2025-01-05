@@ -52,6 +52,7 @@
         <CheckBox Foreground="White"   Name="cbBreak" Grid.Row="7" Grid.Column="0" Content="Replace Breakpad" Margin="11.8,0.4,-0.4,0.4" Grid.RowSpan="1" />
         <CheckBox Foreground="White"   Name="cbAir" Grid.Row="7" Grid.Column="1" Content="Replace Air cleaner" Margin="11.8,0.4,-0.4,0.4" Grid.RowSpan="2" />
         <CheckBox Foreground="White"   Name="cbBelt" Grid.Row="8" Grid.Column="0" Content="Replace Belt" Margin="11.8,0.4,-0.4,0.4" Grid.RowSpan="2" />
+        <CheckBox Foreground="White"   Name="cbOther" Grid.Row="8" Grid.Column="1" Content="Others" Margin="11.8,0.4,-0.4,0.4" Grid.RowSpan="2" />
 
         <!-- Save Button -->
         <Button Style="{StaticResource RoundedButton}"  Name="btnDelete" Content="Delete" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" Width="86" Margin="0,18,100,-37.2" Click="btnDelete_Click" />

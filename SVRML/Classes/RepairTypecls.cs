@@ -63,7 +63,8 @@ namespace SVRML.Classes
                 rt.Change_Oil = reptype.Change_Oil;
                 rt.Replace_Tire = reptype.Replace_Tire;
                 rt.Replace_Breakpads = reptype.Replace_Breakpads;
-                rt.Replace_Aircleaner = reptype.Replace_Aircleaner;
+                rt.Replace_AirFilter= reptype.Replace_AirFilter;
+                rt.OtherTypes = reptype.OtherTypes;
                 rt.Replace_Drivebelt = reptype.Replace_Drivebelt;
                 rt.Cost = reptype.Cost;
                 data.SubmitChanges();

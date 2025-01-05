@@ -93,28 +93,28 @@
             <RowDefinition Height="36*"/>
             <RowDefinition Height="533*"/>
         </Grid.RowDefinitions>
-        <Rectangle  Opacity="0.5" Grid.Column="2" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="40" Margin="5.8,59,0,0" Stroke="Black" VerticalAlignment="Top" Width="362" Grid.RowSpan="3"/>
+        <Rectangle  Opacity="0.5" Grid.Column="1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="40" Margin="339.2,59,0,0" Stroke="Black" VerticalAlignment="Top" Width="419" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
 
-        <Rectangle  Opacity="0.5" Grid.Column="2" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="30" Margin="5.8,31,0,0" Stroke="Black" VerticalAlignment="Top" Width="362" Grid.RowSpan="2"/>
+        <Rectangle  Opacity="0.5" Grid.Column="1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="30" Margin="340.2,31,0,0" Stroke="Black" VerticalAlignment="Top" Width="418" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
 
-        <Rectangle Opacity="0.5" Grid.Column="2" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="30" Margin="5.8,4,0,0" Stroke="Black" VerticalAlignment="Top" Width="362"/>
+        <Rectangle Opacity="0.5" Grid.Column="1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="30" Margin="340.2,4,0,0" Stroke="Black" VerticalAlignment="Top" Width="418" Grid.ColumnSpan="2"/>
 
         <Label Foreground="White" x:Name="label" Content="REPORT" HorizontalAlignment="Left" Margin="-33,-5,0,0" VerticalAlignment="Top" Height="70" Width="285" FontSize="50" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.RowSpan="2"/>
         <Label Foreground="White" x:Name="label1" Content="Service Vehicle Data" HorizontalAlignment="Left" Margin="13,1.8,0,0" VerticalAlignment="Top" Height="26" Width="201" FontWeight="Bold" Grid.Row="1"/>
-        <Label x:Name="labelVehicleReportPlate" Content="AAA 1234  Tesla" HorizontalAlignment="Left" Margin="155.8,2,0,0" VerticalAlignment="Top" Height="26" Width="179" ClipToBounds="True" FontSize="14" FontWeight="ExtraBold" Grid.Column="2" FontStyle="Italic"/>
-        <ComboBox x:Name="comboBoxYears" Grid.Column="2" HorizontalAlignment="Left" Margin="10.8,8.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" Height="22">
+        <Label x:Name="labelVehicleReportPlate" Content="AAA 1234  Tesla" HorizontalAlignment="Left" Margin="78.8,2,0,0" VerticalAlignment="Top" Height="26" Width="279" ClipToBounds="True" FontSize="14" FontWeight="ExtraBold" Grid.Column="2" FontStyle="Italic"/>
+        <ComboBox x:Name="comboBoxYears" Grid.Column="1" HorizontalAlignment="Left" Margin="348.2,7.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="217" Height="22" Grid.ColumnSpan="2">
             <ComboBoxItem Content="Select Specific Year" Foreground="#FF7B7A7A" IsSelected="True"/>
         </ComboBox>
-        <Button Style="{StaticResource RoundedButton}" x:Name="button" Content="Generate" Grid.Column="2" HorizontalAlignment="Left" Margin="175.8,4.8,0,0" VerticalAlignment="Top" Width="91" Height="29" Grid.Row="1" Click="button_Click"/>
+        <Button Style="{StaticResource RoundedButton}" x:Name="button" Content="Generate" Grid.Column="2" HorizontalAlignment="Left" Margin="177.8,5.8,0,0" VerticalAlignment="Top" Width="91" Height="29" Grid.Row="1" Click="button_Click"/>
         <Button Style="{StaticResource RoundedButton}" x:Name="button1" Content="Download" Grid.Column="2" HorizontalAlignment="Left" Margin="273.8,5.8,0,0" VerticalAlignment="Top" Width="86" Height="30" Grid.Row="1" Click="button1_Click"/>
-        <Label x:Name="labelVehicleReport_Copy" Content="Last LTO Registration:" HorizontalAlignment="Left" Margin="4.8,27,0,0" VerticalAlignment="Top" Height="26" Width="154" ClipToBounds="True" FontSize="14" FontWeight="Bold" Grid.Column="2"/>
+        <Label x:Name="labelVehicleReport_Copy" Content="Last LTO Registration:" HorizontalAlignment="Left" Margin="344.2,32,0,0" VerticalAlignment="Top" Height="26" Width="154" ClipToBounds="True" FontSize="14" FontWeight="Bold" Grid.Column="1" Grid.ColumnSpan="2"/>
         <Separator HorizontalAlignment="Left" Height="14" Margin="17,53,0,0" VerticalAlignment="Top" Width="190" Grid.RowSpan="2"/>
-        <Label x:Name="labelVehicleReport_Copy1" Content="Plate No. &amp; Brand:" HorizontalAlignment="Left" Margin="8.8,2,0,0" VerticalAlignment="Top" Height="26" Width="198" ClipToBounds="True" FontSize="14" FontWeight="Bold" Grid.Column="2"/>
-        <Label x:Name="labelVehicleReportLTO" Content="Jan 01, 0000" HorizontalAlignment="Left" Margin="154.8,27,0,0" VerticalAlignment="Top" Height="26" Width="152" ClipToBounds="True" FontSize="14" FontWeight="ExtraBold" Grid.Column="2" FontStyle="Italic"/>
+        <Label x:Name="labelVehicleReport_Copy1" Content="Plate No. &amp; Brand:" HorizontalAlignment="Left" Margin="343.2,3,0,0" VerticalAlignment="Top" Height="26" Width="198" ClipToBounds="True" FontSize="14" FontWeight="Bold" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Label x:Name="labelVehicleReportLTO" Content="Jan 01, 0000" HorizontalAlignment="Left" Margin="101.8,32,0,0" VerticalAlignment="Top" Height="26" Width="258" ClipToBounds="True" FontSize="14" FontWeight="ExtraBold" Grid.Column="2" FontStyle="Italic"/>
         <ListView Opacity="0.8" x:Name="listViewReport" HorizontalAlignment="Left" Height="495" Margin="11,16.8,0,0" Grid.Row="2" VerticalAlignment="Top" Width="1066" Grid.ColumnSpan="3">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Vehicle" DisplayMemberBinding="{Binding Vehicle}" Width="130" />
+                    <GridViewColumn Header="Vehicle" DisplayMemberBinding="{Binding Vehicle}" Width="200" />
                     <GridViewColumn Header="Odometer" DisplayMemberBinding="{Binding Odometer}" Width="100" />
                     <GridViewColumn Header="Repair Date" DisplayMemberBinding="{Binding Repair_Date}" Width="150" />
                     <GridViewColumn Header="LastLTORegistration" DisplayMemberBinding="{Binding LastLTORegistration}" Width="150" />

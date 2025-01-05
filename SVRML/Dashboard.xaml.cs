@@ -85,6 +85,11 @@ namespace SVRML
                         MessageBox.Show("Plate No. Required", "Save Edit", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
+                    if (String.IsNullOrEmpty(txtModel.Text.ToString()))
+                    {
+                        MessageBox.Show("Car Model is required", "Save Edit", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                     if (String.IsNullOrEmpty(txtSerialNo.Text.ToString()))
                     {
                         MessageBox.Show("Serial No. Required", "Save Edit", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -96,7 +101,8 @@ namespace SVRML
                     v.AcquisitionDate = (DateTime)dtpAcq.SelectedDate;
                     v.LastLTORegistration = (DateTime)dtpLTO.SelectedDate;
                     v.AcquisitionCost = Convert.ToDecimal(txtCost.Text);
-                    v.BrandModel = ((ComboBoxItem)comboBox1.Items.GetItemAt(comboBox1.SelectedIndex)).Content.ToString();
+                    v.Brand = ((ComboBoxItem)comboBox1.Items.GetItemAt(comboBox1.SelectedIndex)).Content.ToString();
+                    v.Model = txtModel.Text;
                     v.Type = ((ComboBoxItem)comboBox2.Items.GetItemAt(comboBox2.SelectedIndex)).Content.ToString();
                     v.PlateNum = txtPlateNo.Text;
                     v.SerialNum = txtSerialNo.Text;
@@ -306,7 +312,7 @@ namespace SVRML
                         var vlogs = from l in data.RepairMaintenanceLogs
                                     join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                     where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && (l.Repair_Date >= dtpFrom.SelectedDate)
-                                    select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                    select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
 
 
@@ -318,7 +324,7 @@ namespace SVRML
                                     join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                     where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && (l.Repair_Date >= dtpFrom.SelectedDate)
                                     where (rt.Replace_Drivebelt == true)
-                                    select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                    select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                         }
 
@@ -328,7 +334,7 @@ namespace SVRML
                                     join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                     where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && (l.Repair_Date >= dtpFrom.SelectedDate)
                                     where (rt.Replace_Breakpads == true)
-                                    select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                    select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                         }
 
@@ -338,7 +344,7 @@ namespace SVRML
                                     join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                     where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && (l.Repair_Date >= dtpFrom.SelectedDate)
                                     where (rt.Change_Oil == true)
-                                    select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                    select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                         }
                         else if ((bool)cbTire.IsChecked)
@@ -347,7 +353,7 @@ namespace SVRML
                                     join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                     where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && (l.Repair_Date >= dtpFrom.SelectedDate)
                                     where (rt.Replace_Tire == true)
-                                    select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                    select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                         }
                         else if ((bool)cbAirfilter.IsChecked)
@@ -355,8 +361,18 @@ namespace SVRML
                             vlogs = from l in data.RepairMaintenanceLogs
                                     join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                     where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && (l.Repair_Date >= dtpFrom.SelectedDate)
-                                    where (rt.Replace_Aircleaner == true)
-                                    select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                    where (rt.Replace_AirFilter == true)
+                                    select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
+
+                        }
+
+                        else if ((bool)cbOther.IsChecked)
+                        {
+                            vlogs = from l in data.RepairMaintenanceLogs
+                                    join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
+                                    where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && (l.Repair_Date >= dtpFrom.SelectedDate)
+                                    where (rt.OtherTypes== true)
+                                    select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                         }
 
@@ -366,7 +382,7 @@ namespace SVRML
                             vlogs = from l in data.RepairMaintenanceLogs
                                     join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                     where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && ((l.Repair_Date >= dtpFrom.SelectedDate) && (l.Repair_Date <= dtpTo.SelectedDate))
-                                    select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                    select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                             if ((bool)cbBelt.IsChecked)
                             {
@@ -374,7 +390,7 @@ namespace SVRML
                                         join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                         where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && ((l.Repair_Date >= dtpFrom.SelectedDate) && (l.Repair_Date <= dtpTo.SelectedDate))
                                         where (rt.Replace_Drivebelt == true)
-                                        select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                        select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                             }
 
@@ -384,7 +400,7 @@ namespace SVRML
                                         join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                         where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && ((l.Repair_Date >= dtpFrom.SelectedDate) && (l.Repair_Date <= dtpTo.SelectedDate))
                                         where (rt.Replace_Breakpads == true)
-                                        select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                        select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                             }
 
@@ -394,7 +410,7 @@ namespace SVRML
                                         join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                         where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && ((l.Repair_Date >= dtpFrom.SelectedDate) && (l.Repair_Date <= dtpTo.SelectedDate))
                                         where (rt.Change_Oil == true)
-                                        select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                        select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                             }
                             else if ((bool)cbTire.IsChecked)
@@ -403,7 +419,7 @@ namespace SVRML
                                         join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                         where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && ((l.Repair_Date >= dtpFrom.SelectedDate) && (l.Repair_Date <= dtpTo.SelectedDate))
                                         where (rt.Replace_Tire == true)
-                                        select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                        select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                             }
                             else if ((bool)cbAirfilter.IsChecked)
@@ -411,8 +427,18 @@ namespace SVRML
                                 vlogs = from l in data.RepairMaintenanceLogs
                                         join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                                         where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && ((l.Repair_Date >= dtpFrom.SelectedDate) && (l.Repair_Date <= dtpTo.SelectedDate))
-                                        where (rt.Replace_Aircleaner == true)
-                                        select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                                        where (rt.Replace_AirFilter == true)
+                                        select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
+
+                            }
+
+                            else if ((bool)cbOther.IsChecked)
+                            {
+                                vlogs = from l in data.RepairMaintenanceLogs
+                                        join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
+                                        where (l.Vehicle_ID == Convert.ToInt32(label2.Content.ToString())) && ((l.Repair_Date >= dtpFrom.SelectedDate) && (l.Repair_Date <= dtpTo.SelectedDate))
+                                        where (rt.OtherTypes == true)
+                                        select new { l.Remarks, ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : "") };
 
                             }
                         }
@@ -428,7 +454,7 @@ namespace SVRML
 
         private void btnReport_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(label2.Content.ToString()))
+            if (!string.IsNullOrEmpty(label2.Content.ToString()) && listView.HasItems)
             {
                 ReportWindow rw = new ReportWindow(label2.Content.ToString());
                 rw.ShowDialog();
@@ -661,7 +687,7 @@ namespace SVRML
                 var vlogs = from l in data.RepairMaintenanceLogs
                             join rt in data.RepairTypes on l.RepairLog_ID equals rt.RepairLogID
                             where l.Vehicle_ID == vehicleid
-                            select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_Aircleaner) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") };
+                            select new { ID = l.RepairLog_ID, RepairDate = l.Repair_Date.ToLongDateString(), rt.Cost, Milage = l.Milage + "KM", RepairType = (((bool)rt.Replace_Drivebelt) ? "Repalce Drive Belt, " : "") + (((bool)rt.Replace_AirFilter) ? "Repalce Airfilter, " : "") + (((bool)rt.Replace_Breakpads) ? "Repalce Breakpads, " : "") + (((bool)rt.Replace_Tire) ? "Repalce Tire, " : "") + (((bool)rt.Change_Oil) ? "Change oil, " : "") + (((bool)rt.OtherTypes) ? "Others repair, " : ""), l.Remarks};
 
                 //dataGridMaintenanceLog.ItemsSource = vlogs;
                 //dataGridMaintenanceLog.AutoGeneratedColumns += MyDataGridLog_AutoGeneratedColumns;
@@ -709,18 +735,19 @@ namespace SVRML
             Vehicle v = veh.GetVehicle(buttontext.ToString());
             if (v != null)
             {
-                label.Content = $"{v.PlateNum} {v.BrandModel}";
+                label.Content = $"{v.PlateNum} {v.Brand} {v.Model}";
                 txtPlateNo.Text = v.PlateNum;
                 txtCost.Text = v.AcquisitionCost.ToString();
                 txtSerialNo.Text = v.SerialNum;
                 label2.Content = v.Vehicle_ID.ToString();
+                txtModel.Text = v.Model;
 
                 dtpAcq.SelectedDate = v.AcquisitionDate;
                 dtpLTO.SelectedDate = v.LastLTORegistration;
 
                 foreach (ComboBoxItem item in comboBox1.Items)
                 {
-                    if (item.Content.ToString() == v.BrandModel)
+                    if (item.Content.ToString() == v.Brand)
                     {
                         comboBox1.SelectedItem = item;
                         break; // Stop once we find the match
@@ -844,7 +871,7 @@ namespace SVRML
                                 scv.schedid = item.SchedMain_ID;
                                 scv.vehid = item.Vehicle_ID;
                                 scv.vehplate = ve.PlateNum;
-                                scv.vehmodelbrand = ve.BrandModel;
+                                scv.vehmodelbrand = $"{ve.Brand} {ve.Model}";
                                 return scv;
                             }
                         }
