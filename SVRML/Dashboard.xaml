@@ -123,7 +123,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="pack://application:,,,/SVRML;component/icons/automotive-36.png" Width="16" Height="16"/>
-                        <TextBlock Text="Mintenance Log" Margin="5,0,0,0"/>
+                        <TextBlock Text="Maintenance Log" Margin="5,0,0,0"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
@@ -143,9 +143,9 @@
                     <RadioButton x:Name="cbAirfilter" Content="Change AirFilter" HorizontalAlignment="Left" Margin="248,70,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
                     <RadioButton x:Name="cbTire" Content="Change Tire" HorizontalAlignment="Left" Margin="371,69,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI"/>
                     <RadioButton x:Name="cbBelt" Content="Change Belt" HorizontalAlignment="Left" Margin="476,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI" Grid.ColumnSpan="2"/>
-                    <RadioButton x:Name="cbBreak" Content="Change Brakpad" HorizontalAlignment="Left" Margin="85.2,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI" Grid.Column="1"/>
+                    <RadioButton x:Name="cbBreak" Content="Change Breakpad" HorizontalAlignment="Left" Margin="85.2,72,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe UI" Grid.Column="1"/>
                     <RadioButton x:Name="cbOil" Content="Change Oil" HorizontalAlignment="Left" Margin="216.2,74,0,0" VerticalAlignment="Top" FontSize="12" Width="84" FontFamily="Segoe UI" Grid.Column="1"/>
-                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnApplyFilter" Content="FIlter" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,32,61.8,493" Width="72"  RenderTransformOrigin="0.687,0.894" IsEnabled="False" Click="btnApplyFilter_Click" FontSize="14" FontFamily="Agency FB" Grid.Column="1" />
+                    <Button Style="{StaticResource RoundedButton}"  x:Name="btnApplyFilter" Content="Filter" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,32,61.8,493" Width="72"  RenderTransformOrigin="0.687,0.894" IsEnabled="False" Click="btnApplyFilter_Click" FontSize="14" FontFamily="Agency FB" Grid.Column="1" />
                     <Button Style="{StaticResource RoundedButton}"  x:Name="btnReport" Content="Report" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,52,259.8,464" Width="85" RenderTransformOrigin="0.502,0.503" IsEnabled="False" Click="btnReport_Click" FontSize="14" FontFamily="Agency FB" />
                     <ListView Opacity="0.6" x:Name="listView" HorizontalAlignment="Left" Height="421" Margin="3,110,0,0" VerticalAlignment="Top" Width="852" FontSize="16" MouseDoubleClick="listView_MouseDoubleClick" SelectionMode="Single" SelectionChanged="listView_SelectionChanged" FontFamily="Segoe UI" Grid.ColumnSpan="2">
 
@@ -155,9 +155,9 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="0" />
-                                <GridViewColumn Header="Repaire Date" DisplayMemberBinding="{Binding RepairDate}" Width="220" />
+                                <GridViewColumn Header="Repair Date" DisplayMemberBinding="{Binding RepairDate}" Width="220" />
                                 <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding Cost}" Width="80" />
-                                <GridViewColumn Header="Milage" DisplayMemberBinding="{Binding Milage}" Width="80" />
+                                <GridViewColumn Header="Mileage" DisplayMemberBinding="{Binding Milage}" Width="80" />
                                 <GridViewColumn Header="RepairType" DisplayMemberBinding="{Binding RepairType}" Width="200" />
                                 <GridViewColumn Header="Remarks" DisplayMemberBinding="{Binding Remarks}" Width="500" />
                             </GridView>
@@ -181,7 +181,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Foreground="White" Content="Schedule Maintenance" VerticalAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="21,14,0,0" Height="30" FontFamily="Segoe UI Semibold" FontSize="14" />
                     <Button Style="{StaticResource RoundedButton}"  Name="btnNewSched" Content="NEW SCHEDULE" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,16,15.4,499" Width="139" RenderTransformOrigin="0.502,0.503" IsEnabled="False" Click="btnNewSched_Click" Grid.Column="1" />
-                    <Label Content="Double click every row to view other details." Margin="9,514,158.4,2.2" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" FontFamily="Segoe UI" FontSize="12"  />
+                    <Label Content="Double click every row to view other details." Margin="9,514,158.4,2.2" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" FontFamily="Segoe UI" FontSize="12" Foreground="Wheat" />
                     <ListView Opacity="0.5" x:Name="listViewSched" HorizontalAlignment="Left" Height="455" Margin="9,63,0,0" VerticalAlignment="Top" Width="854" Grid.ColumnSpan="2" SelectionChanged="listViewSched_SelectionChanged" MouseDoubleClick="listViewSched_MouseDoubleClick" FontSize="18" FontFamily="Segoe UI">
                         <ListView.View>
                             <GridView>
